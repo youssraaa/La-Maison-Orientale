@@ -865,6 +865,10 @@ h3 {
   gap: 1rem;
 }
 
+.contact-form__row--three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .contact-form__hint {
   margin: -0.5rem 0 1rem;
   font-size: 0.85rem;
@@ -1015,7 +1019,8 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .contact-form__row {
+  .contact-form__row,
+  .contact-form__row--three {
     grid-template-columns: 1fr;
   }
 }
