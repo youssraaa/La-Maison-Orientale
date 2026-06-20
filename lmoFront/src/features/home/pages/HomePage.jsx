@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PublicNavbar from "../../../common/components/PublicNavbar";
 import HeroSection from "../components/HeroSection";
 import EditorialSection from "../components/EditorialSection";
+import HomeGalleryPreview from "../components/HomeGalleryPreview";
 
 function HomePage() {
   return (
@@ -20,6 +21,8 @@ function HomePage() {
         imageSrc="/images/interior-team.png"
         imageAlt="Équipe et ambiance La Maison Orientale"
       />
+
+      <HomeGalleryPreview />
 
       <EditorialSection
         label="Saveurs du Levant"
@@ -47,20 +50,6 @@ function HomePage() {
       />
 
       <EditorialSection
-        label="L'expérience"
-        title="L'ambiance en images"
-        paragraphs={[
-          "Découvrez l'atmosphère du restaurant : l'enseigne, l'intérieur et l'esprit convivial qui fait la signature de la maison.",
-        ]}
-        linkTo="/galerie"
-        linkLabel="→ Voir la galerie"
-        imageSrc="/images/interior-team.png"
-        imageAlt="Galerie La Maison Orientale"
-        reverse
-        alt
-      />
-
-      <EditorialSection
         label="Réservation"
         title="Réserver votre table"
         paragraphs={[
@@ -70,6 +59,8 @@ function HomePage() {
         linkLabel="→ Réserver une table"
         imageSrc="/images/logo-round.png"
         imageAlt="La Maison Orientale"
+        reverse
+        alt
       />
 
       <footer className="site-footer">

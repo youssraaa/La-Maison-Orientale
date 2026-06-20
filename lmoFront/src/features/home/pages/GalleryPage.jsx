@@ -1,4 +1,5 @@
 import PublicNavbar from "../../../common/components/PublicNavbar";
+import { galleryImages } from "../data/galleryData";
 
 function GalleryPage() {
   return (
@@ -6,14 +7,16 @@ function GalleryPage() {
       <PublicNavbar />
       <section className="page__hero">
         <h1>Galerie</h1>
-        <p>L&apos;atmosphère de La Maison Orientale en images.</p>
+        <p>L&apos;atmosphère et nos créations — La Maison Orientale en images.</p>
       </section>
 
       <section className="section-card gallery">
         <div className="gallery__grid">
-          <img src="/images/storefront.png" alt="Façade du restaurant" />
-          <img src="/images/interior-team.png" alt="Intérieur du restaurant" />
-          <img src="/images/logo-wall.png" alt="Logo mural" />
+          {galleryImages.map((image) => (
+            <figure key={image.src} className="gallery__cell">
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </figure>
+          ))}
         </div>
       </section>
     </main>
