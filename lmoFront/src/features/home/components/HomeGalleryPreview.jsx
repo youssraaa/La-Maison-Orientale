@@ -8,10 +8,6 @@ function HomeGalleryPreview() {
         <div className="home-gallery-preview__header">
           <p className="editorial__label">L&apos;expérience</p>
           <h2 className="editorial__title">Nos créations en images</h2>
-          <p className="editorial__text">
-            Grillades, mezzés et spécialités maison — un aperçu de ce qui vous
-            attend à table.
-          </p>
         </div>
 
         <div className="gallery__grid gallery__grid--compact">
@@ -22,9 +18,11 @@ function HomeGalleryPreview() {
           ))}
         </div>
 
-        <Link to="/galerie" className="editorial__link home-gallery-preview__link">
-          → Voir la galerie complète
-        </Link>
+        <div className="home-gallery-preview__cta">
+          <Link to="/galerie" className="btn btn--accent">
+            Voir la galerie complète
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,10 @@
 import PublicNavbar from "../../../common/components/PublicNavbar";
 import ReservationForm from "../components/ReservationForm";
+import { restaurantInfo } from "../../../common/data/restaurantInfo";
 
 function ReservationPage() {
+  const { phone, hours, address } = restaurantInfo;
+
   return (
     <main className="page contact-page">
       <PublicNavbar />
@@ -15,16 +18,12 @@ function ReservationPage() {
           <h2>Bon à savoir</h2>
           <dl className="contact-info__list">
             <div>
+              <dt>Adresse</dt>
+              <dd>{address.full}</dd>
+            </div>
+            <div>
               <dt>Horaires</dt>
-              <dd>
-                Mardi – Dimanche
-                <br />
-                Midi : 11h30 – 14h30
-                <br />
-                Soir : 18h00 – 22h00
-                <br />
-                <span className="contact-info__closed">Fermé le lundi</span>
-              </dd>
+              <dd>{hours.summary}</dd>
             </div>
             <div>
               <dt>Grandes tablées</dt>
@@ -33,12 +32,14 @@ function ReservationPage() {
                 appelez-nous directement.
               </dd>
             </div>
-            <div>
-              <dt>Téléphone</dt>
-              <dd>
-                <a href="tel:+32470123456">+32 470 12 34 56</a>
-              </dd>
-            </div>
+            {phone?.display && (
+              <div>
+                <dt>Téléphone</dt>
+                <dd>
+                  <a href={phone.href}>{phone.display}</a>
+                </dd>
+              </div>
+            )}
           </dl>
         </aside>
 

@@ -1,7 +1,10 @@
 import PublicNavbar from "../../../common/components/PublicNavbar";
 import ContactForm from "../components/ContactForm";
+import { restaurantInfo } from "../../../common/data/restaurantInfo";
 
 function ContactPage() {
+  const { name, address, phone, email, hours } = restaurantInfo;
+
   return (
     <main className="page contact-page">
       <PublicNavbar />
@@ -12,36 +15,33 @@ function ContactPage() {
 
       <div className="contact-layout">
         <aside className="contact-info">
-          <h2>La Maison Orientale</h2>
+          <h2>{name}</h2>
           <dl className="contact-info__list">
             <div>
               <dt>Adresse</dt>
-              <dd>Rue de la Station 12, 7390 Quaregnon</dd>
+              <dd>{address.full}</dd>
             </div>
             <div>
               <dt>Téléphone</dt>
               <dd>
-                <a href="tel:+32470123456">+32 470 12 34 56</a>
+                <a href={phone.href}>{phone.display}</a>
               </dd>
             </div>
             <div>
               <dt>E-mail</dt>
               <dd>
-                <a href="mailto:contact@lamaisonorientale.be">
-                  contact@lamaisonorientale.be
-                </a>
+                <a href={email.href}>{email.display}</a>
               </dd>
             </div>
             <div>
               <dt>Horaires</dt>
               <dd>
-                Mardi – Dimanche
-                <br />
-                Midi : 11h30 – 14h30
-                <br />
-                Soir : 18h00 – 22h00
-                <br />
-                <span className="contact-info__closed">Fermé le lundi</span>
+                {hours.schedule.map((row) => (
+                  <span key={row.day} className="contact-info__hours-row">
+                    {row.day} : {row.time}
+                    <br />
+                  </span>
+                ))}
               </dd>
             </div>
           </dl>

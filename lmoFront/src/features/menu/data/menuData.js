@@ -81,16 +81,16 @@ export const menuCategories = [
     ],
   },
   {
-    id: "sandwichs-chawarmas",
-    title: "Sandwichs & chawarmas",
+    id: "sandwichs-shawarmas",
+    title: "Sandwichs & shawarmas",
     items: [
-      { name: "Durum chawarma", price: 7.5 },
-      { name: "Durum pané au chawarma", price: 10 },
+      { name: "Durum shawarma", price: 7.5 },
+      { name: "Durum pané au shawarma", price: 10 },
       { name: "Durum falafel", price: 6.5 },
       { name: "Durum kefta", price: 8 },
       { name: "Durum brochettes de bœuf", price: 9 },
       { name: "Durum brochettes d'agneau", price: 9 },
-      { name: "Sandwich chawarma", price: 9 },
+      { name: "Sandwich shawarma", price: 9 },
       { name: "Sandwich kefta", price: 9 },
       { name: "Sandwich brochettes d'agneau", price: 9 },
       { name: "Sandwich brochettes de bœuf", price: 9 },
@@ -101,13 +101,13 @@ export const menuCategories = [
     title: "Plats",
     items: [
       {
-        name: "Plat chawarma arabi",
+        name: "Plat shawarma arabi",
         description:
           "Garniture : salade verte, salade russe, cornichons, frites, sauce.",
         price: 14,
       },
       {
-        name: "Assiette chawarma",
+        name: "Assiette shawarma",
         description:
           "Garniture : salade verte, salade russe, cornichons, riz, frites, sauce.",
         price: 16,
