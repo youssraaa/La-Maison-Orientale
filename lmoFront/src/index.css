@@ -1281,6 +1281,10 @@ h3 {
   height: 260px;
 }
 
+.gallery__grid--page {
+  gap: 0.85rem;
+}
+
 .gallery__cell {
   margin: 0;
   overflow: hidden;
@@ -1288,11 +1292,107 @@ h3 {
   background: var(--cream-dark);
 }
 
+.gallery__cell--button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--cream-dark);
+  background: var(--cream-dark);
+  cursor: zoom-in;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery__cell--button:hover,
+.gallery__cell--button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(58, 34, 20, 0.16);
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .gallery__cell img {
   width: 100%;
   height: 280px;
   object-fit: cover;
   display: block;
+}
+
+.gallery-page__body {
+  width: min(var(--content-max), 94%);
+  margin: 2.25rem auto 3rem;
+}
+
+/* ——— Gallery lightbox ——— */
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: rgba(26, 14, 8, 0.92);
+}
+
+.gallery-lightbox__figure {
+  margin: 0;
+  max-height: calc(100vh - 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox__figure img {
+  max-width: min(960px, 100%);
+  max-height: calc(100vh - 6rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid rgba(212, 168, 75, 0.35);
+}
+
+.gallery-lightbox__figure figcaption {
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(247, 240, 230, 0.7);
+}
+
+.gallery-lightbox__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(240, 215, 140, 0.4);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--gold-light);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gallery-lightbox__arrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid rgba(240, 215, 140, 0.45);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--gold-light);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gallery-lightbox__arrow:hover,
+.gallery-lightbox__close:hover {
+  background: rgba(212, 168, 75, 0.28);
+  border-color: var(--gold);
 }
 
 /* ——— Footer ——— */
@@ -1455,6 +1555,40 @@ h3 {
   );
   color: var(--cream);
   border-bottom: 3px solid var(--gold);
+}
+
+.page__hero--gallery {
+  background:
+    radial-gradient(ellipse at 70% 0%, rgba(212, 168, 75, 0.22), transparent 48%),
+    linear-gradient(165deg, #3a2214 0%, #5c301c 45%, #8a4a2a 100%);
+  color: var(--cream);
+  border-bottom: 3px solid var(--gold);
+}
+
+.page__hero-kicker {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.page__hero--gallery h1 {
+  color: #fff;
+  font-size: clamp(2.55rem, 5.5vw, 3.65rem);
+  font-weight: 700;
+}
+
+.page__hero--gallery p {
+  color: rgba(247, 240, 230, 0.95);
+  opacity: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+  font-style: italic;
+  font-weight: 600;
+  max-width: 38rem;
 }
 
 .page__hero h1 {
@@ -2051,12 +2185,30 @@ h3 {
 
   .menu-preview,
   .gallery__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .gallery__grid--compact .gallery__cell img,
   .gallery__cell img {
-    height: 240px;
+    height: 220px;
+  }
+
+  .gallery-lightbox {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+  }
+
+  .gallery-lightbox__arrow--prev {
+    order: 2;
+  }
+
+  .gallery-lightbox__figure {
+    order: 1;
+  }
+
+  .gallery-lightbox__arrow--next {
+    order: 3;
   }
 
   .menu-nav {
@@ -2111,6 +2263,10 @@ h3 {
 }
 
 @media (max-width: 520px) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+  }
+
   .navbar {
     padding: 0.45rem 0.7rem 0.55rem;
     gap: 0.4rem;
