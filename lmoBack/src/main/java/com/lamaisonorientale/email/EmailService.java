@@ -9,8 +9,10 @@ public interface EmailService {
             String nom,
             String email,
             String telephone,
+            String sujet,
             String message,
             Instant createdAt);
 
-    void sendContactAcknowledgementToClient(String clientEmail, String nom, String message);
+    void sendContactAcknowledgementToClient(
+            String clientEmail, String nom, String sujet, String message);
 }

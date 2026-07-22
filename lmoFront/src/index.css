@@ -443,7 +443,7 @@ h3 {
 .section-kicker {
   margin: 0 0 0.65rem;
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -569,7 +569,7 @@ h3 {
 }
 
 .cuisine-banner__inner {
-  max-width: 42rem;
+  max-width: 52rem;
   margin: 0 auto;
 }
 
@@ -581,24 +581,48 @@ h3 {
 
 .cuisine-banner p {
   margin: 0 auto 1.35rem;
+  max-width: 40rem;
   font-size: 1.05rem;
   font-weight: 300;
   line-height: 1.7;
   color: rgba(255, 248, 240, 0.88);
 }
 
-.cuisine-banner__tags {
+.cuisine-banner__services {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.55rem;
   list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 0;
+}
+
+.cuisine-banner__services li {
+  padding: 0.5rem 1.05rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3d2114;
+  background: var(--gold-light);
+  border: 1px solid rgba(240, 196, 90, 0.85);
+}
+
+.cuisine-banner__tags {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0.55rem;
+  list-style: none;
   margin: 0;
   padding: 0;
-  overflow: visible;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .cuisine-banner__tags li {
+  flex: 0 0 auto;
   padding: 0.45rem 0.9rem;
   font-size: 0.78rem;
   font-weight: 600;
@@ -606,6 +630,7 @@ h3 {
   text-transform: uppercase;
   color: var(--gold-light);
   border: 1px solid rgba(240, 196, 90, 0.45);
+  white-space: nowrap;
 }
 
 /* ——— Moments (cartes image + texte) ——— */
@@ -1616,7 +1641,8 @@ h3 {
 }
 
 .page__hero--gallery,
-.page__hero--menu {
+.page__hero--menu,
+.page__hero--contact {
   background:
     radial-gradient(ellipse at 70% 0%, rgba(212, 168, 75, 0.22), transparent 48%),
     linear-gradient(165deg, #3a2214 0%, #5c301c 45%, #8a4a2a 100%);
@@ -1635,7 +1661,8 @@ h3 {
 }
 
 .page__hero--gallery h1,
-.page__hero--menu h1 {
+.page__hero--menu h1,
+.page__hero--contact h1 {
   color: #fff;
   font-size: clamp(2.55rem, 5.5vw, 3.65rem);
   font-weight: 700;
@@ -1651,7 +1678,8 @@ h3 {
   max-width: 38rem;
 }
 
-.page__hero--menu p {
+.page__hero--menu p,
+.page__hero--contact p {
   color: rgba(247, 240, 230, 0.95);
   opacity: 1;
   font-family: var(--font-display);
@@ -2070,27 +2098,72 @@ h3 {
 
 /* ——— Contact page ——— */
 
+.contact-page {
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(212, 168, 75, 0.28), transparent 44%),
+    radial-gradient(ellipse at 85% 40%, rgba(166, 101, 57, 0.18), transparent 42%),
+    radial-gradient(ellipse at 50% 95%, rgba(139, 40, 40, 0.1), transparent 48%),
+    linear-gradient(180deg, #f3e4ce 0%, #ead6be 50%, #e2c9ac 100%);
+}
+
+.contact-sheet {
+  width: min(980px, 94%);
+  margin: 2.5rem auto 3.5rem;
+  padding: clamp(1.75rem, 4vw, 3rem) clamp(1.15rem, 3.5vw, 2.5rem);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(212, 168, 75, 0.14), transparent 48%),
+    linear-gradient(180deg, #fffaf2 0%, #f8eee0 100%);
+  border: 3px solid #b8862d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 250, 242, 0.95),
+    inset 0 0 0 8px rgba(212, 168, 75, 0.38),
+    0 0 0 7px rgba(255, 244, 225, 0.9),
+    0 0 0 10px #c4893a,
+    0 22px 50px rgba(42, 18, 16, 0.16);
+}
+
+.contact-sheet__ornament {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto 0.85rem;
+  border: 1px solid var(--gold);
+  transform: rotate(45deg);
+  box-shadow: inset 0 0 0 5px #fffaf2;
+  background: linear-gradient(135deg, #f0d78c, #d4a84b 55%, #a66539);
+}
+
+.contact-sheet__brand {
+  margin: 0 0 2rem;
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: clamp(1.9rem, 4vw, 2.55rem);
+  color: #8a4a2a;
+  line-height: 1;
+}
+
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 2rem;
+  grid-template-columns: 0.95fr 1.35fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.page > .contact-layout {
+  width: min(980px, 94%);
   max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 2.5rem 1.25rem 4rem;
-  align-items: start;
+  margin: 2.5rem auto 3.5rem;
+  padding: 0;
 }
 
 .contact-info {
-  padding: 2rem;
-  background: var(--burgundy-deep);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(212, 168, 75, 0.22), transparent 55%),
+    linear-gradient(165deg, #3a2214 0%, #5c301c 55%, #2a1810 100%);
   color: var(--cream);
   border-top: 3px solid var(--gold);
-}
-
-.contact-info h2 {
-  margin: 0 0 1.5rem;
-  font-size: 1.75rem;
-  color: var(--cream);
 }
 
 .contact-info__list {
@@ -2133,63 +2206,132 @@ h3 {
   opacity: 0.85;
 }
 
+.contact-info__socials {
+  margin-top: auto;
+  padding-top: 1.75rem;
+}
+
+.contact-info__socials-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.contact-info__social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-info__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--cream);
+  text-decoration: none;
+  border: 1px solid rgba(240, 196, 90, 0.4);
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.contact-info__social-link:hover {
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+  background: rgba(212, 168, 75, 0.12);
+}
+
+.contact-info__social-link svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}
+
 .contact-panel {
-  padding: 2rem;
-  background: #fff;
-  border: 1px solid var(--cream-dark);
-  box-shadow: 0 12px 40px rgba(42, 18, 16, 0.06);
+  padding: clamp(1.65rem, 3.2vw, 2.25rem);
+  background: linear-gradient(180deg, #fffdf8 0%, #faf3e8 100%);
+  border: 1px solid rgba(212, 168, 75, 0.4);
+  box-shadow: 0 10px 28px rgba(42, 18, 16, 0.06);
 }
 
 .contact-panel h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.75rem;
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.5vw, 1.9rem);
   color: var(--burgundy-deep);
 }
 
 .contact-panel__lead {
-  margin: 0 0 1.75rem;
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.7;
+  margin: 0 0 1.85rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.65;
   color: var(--text-muted);
 }
 
 .contact-form__field {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .contact-form__field label {
   display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--burgundy-deep);
 }
 
 .contact-form__field input,
-.contact-form__field textarea {
+.contact-form__field textarea,
+.contact-form__field select {
   width: 100%;
-  padding: 0.75rem 0.9rem;
+  padding: 0.82rem 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
+  line-height: 1.4;
   color: var(--text);
-  background: var(--cream);
-  border: 1px solid var(--cream-dark);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fffefb;
+  border: 1px solid rgba(166, 101, 57, 0.28);
+  border-radius: 2px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.contact-form__field input::placeholder,
+.contact-form__field textarea::placeholder {
+  color: rgba(74, 55, 44, 0.45);
+}
+
+.contact-form__field input:hover,
+.contact-form__field textarea:hover,
+.contact-form__field select:hover {
+  border-color: rgba(166, 101, 57, 0.45);
 }
 
 .contact-form__field input:focus,
-.contact-form__field textarea:focus {
+.contact-form__field textarea:focus,
+.contact-form__field select:focus {
   outline: none;
+  background: #fff;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.16);
 }
 
 .contact-form__field input[aria-invalid="true"],
-.contact-form__field textarea[aria-invalid="true"] {
-  border-color: var(--burgundy-soft);
+.contact-form__field textarea[aria-invalid="true"],
+.contact-form__field select[aria-invalid="true"] {
+  border-color: #8b1e1e;
+  box-shadow: 0 0 0 3px rgba(139, 30, 30, 0.1);
 }
 
 .contact-form__row {
@@ -2203,8 +2345,8 @@ h3 {
 }
 
 .contact-form__hint {
-  margin: -0.5rem 0 1rem;
-  font-size: 0.85rem;
+  margin: 0;
+  font-size: 0.82rem;
   font-style: italic;
   color: var(--text-muted);
 }
@@ -2214,7 +2356,7 @@ h3 {
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
 }
 
 .contact-form__meta .contact-form__hint {
@@ -2227,21 +2369,21 @@ h3 {
 }
 
 .contact-form__counter--over {
-  color: var(--burgundy-soft);
+  color: #8b1e1e;
   font-weight: 600;
 }
 
 .contact-form__error {
   display: block;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
   font-size: 0.85rem;
-  color: var(--burgundy-soft);
+  color: #8b1e1e;
 }
 
 .contact-form__error--global {
   padding: 0.75rem 1rem;
-  background: rgba(123, 45, 38, 0.08);
-  border-left: 3px solid var(--burgundy-soft);
+  background: rgba(139, 30, 30, 0.08);
+  border-left: 3px solid #8b1e1e;
 }
 
 .contact-form__error--warning {
@@ -2260,7 +2402,8 @@ h3 {
 }
 
 .contact-form__submit {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+  width: 100%;
   cursor: pointer;
   border: none;
 }
@@ -2268,6 +2411,17 @@ h3 {
 .contact-form__submit:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-sheet {
+    margin-top: 1.5rem;
+    padding: 1.35rem 1rem 1.5rem;
+  }
 }
 
 /* ——— Responsive (tablette + téléphone) ——— */
@@ -2395,11 +2549,13 @@ h3 {
   }
 
   .cuisine-banner__tags {
-    justify-content: center;
+    justify-content: flex-start;
+    padding-bottom: 0.15rem;
   }
 
   .cuisine-banner__tags li {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.75rem;
   }
 
   .editorial__inner {

@@ -26,16 +26,12 @@ public class ContactService {
 
     @Transactional(noRollbackFor = EmailDeliveryException.class)
     public ContactResponseDto submit(ContactRequestDto request) {
-        if (!StringUtils.hasText(request.email()) && !StringUtils.hasText(request.telephone())) {
-            throw new IllegalArgumentException(
-                    "Indiquez au moins un e-mail ou un numéro de téléphone pour vous recontacter.");
-        }
-
         DemandeClient demande = new DemandeClient();
         demande.setTypeDemande(TypeDemande.CONTACT);
         demande.setNom(request.nom().trim());
-        demande.setEmail(trimToNull(request.email()));
+        demande.setEmail(request.email().trim());
         demande.setTelephone(trimToNull(request.telephone()));
+        demande.setSujet(request.sujet().trim());
         demande.setMessage(request.message().trim());
         demande.setStatut(StatutDemande.NOUVELLE);
 
@@ -46,12 +42,14 @@ public class ContactService {
                 saved.getNom(),
                 saved.getEmail(),
                 saved.getTelephone(),
+                saved.getSujet(),
                 saved.getMessage(),
                 saved.getCreatedAt());
 
         emailService.sendContactAcknowledgementToClient(
                 saved.getEmail(),
                 saved.getNom(),
+                saved.getSujet(),
                 saved.getMessage());
 
         return new ContactResponseDto(

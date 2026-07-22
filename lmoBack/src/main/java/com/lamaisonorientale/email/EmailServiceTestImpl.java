@@ -19,13 +19,15 @@ public class EmailServiceTestImpl implements EmailService {
             String nom,
             String email,
             String telephone,
+            String sujet,
             String message,
             Instant createdAt) {
-        log.debug("Mock e-mail restaurant : demande #{} de {}", demandeId, nom);
+        log.debug("Mock e-mail restaurant : demande #{} « {} » de {}", demandeId, sujet, nom);
     }
 
     @Override
-    public void sendContactAcknowledgementToClient(String clientEmail, String nom, String message) {
-        log.debug("Mock e-mail client : accusé pour {}", clientEmail);
+    public void sendContactAcknowledgementToClient(
+            String clientEmail, String nom, String sujet, String message) {
+        log.debug("Mock e-mail client : accusé pour {} (sujet : {})", clientEmail, sujet);
     }
 }

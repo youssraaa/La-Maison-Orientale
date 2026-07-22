@@ -8,7 +8,7 @@ import {
 const initialForm = {
   nom: "",
   email: "",
-  telephone: "",
+  sujet: "",
   message: "",
 };
 
@@ -47,9 +47,10 @@ function ContactForm() {
 
     const payload = {
       nom: form.nom.trim(),
+      email: form.email.trim(),
+      sujet: form.sujet.trim(),
       message: form.message.trim(),
-      email: form.email.trim() || null,
-      telephone: form.telephone.trim() || null,
+      telephone: null,
     };
 
     try {
@@ -95,59 +96,45 @@ function ContactForm() {
         )}
       </div>
 
-      <div className="contact-form__row">
-        <div className="contact-form__field">
-          <label htmlFor="email">E-mail</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            maxLength={255}
-            value={form.email}
-            onChange={handleChange}
-            aria-invalid={Boolean(fieldErrors.email)}
-            aria-describedby={fieldErrors.email ? "email-error" : undefined}
-          />
-          {fieldErrors.email && (
-            <span id="email-error" className="contact-form__error" role="alert">
-              {fieldErrors.email}
-            </span>
-          )}
-        </div>
-
-        <div className="contact-form__field">
-          <label htmlFor="telephone">Téléphone</label>
-          <input
-            id="telephone"
-            name="telephone"
-            type="tel"
-            autoComplete="tel"
-            maxLength={30}
-            placeholder="+32 …"
-            value={form.telephone}
-            onChange={handleChange}
-            aria-invalid={Boolean(fieldErrors.telephone)}
-            aria-describedby={
-              fieldErrors.telephone ? "telephone-error" : undefined
-            }
-          />
-          {fieldErrors.telephone && (
-            <span
-              id="telephone-error"
-              className="contact-form__error"
-              role="alert"
-            >
-              {fieldErrors.telephone}
-            </span>
-          )}
-        </div>
+      <div className="contact-form__field">
+        <label htmlFor="email">E-mail *</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          maxLength={255}
+          value={form.email}
+          onChange={handleChange}
+          aria-invalid={Boolean(fieldErrors.email)}
+          aria-describedby={fieldErrors.email ? "email-error" : undefined}
+        />
+        {fieldErrors.email && (
+          <span id="email-error" className="contact-form__error" role="alert">
+            {fieldErrors.email}
+          </span>
+        )}
       </div>
 
-      <p className="contact-form__hint">
-        Indiquez au moins un e-mail ou un téléphone pour que nous puissions vous
-        répondre.
-      </p>
+      <div className="contact-form__field">
+        <label htmlFor="sujet">Sujet *</label>
+        <input
+          id="sujet"
+          name="sujet"
+          type="text"
+          maxLength={120}
+          placeholder="Ex. : anniversaire, événement, question…"
+          value={form.sujet}
+          onChange={handleChange}
+          aria-invalid={Boolean(fieldErrors.sujet)}
+          aria-describedby={fieldErrors.sujet ? "sujet-error" : undefined}
+        />
+        {fieldErrors.sujet && (
+          <span id="sujet-error" className="contact-form__error" role="alert">
+            {fieldErrors.sujet}
+          </span>
+        )}
+      </div>
 
       <div className="contact-form__field">
         <label htmlFor="message">Message *</label>

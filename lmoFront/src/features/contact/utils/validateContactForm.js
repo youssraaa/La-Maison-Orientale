@@ -1,11 +1,10 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_PATTERN = /^[+]?[\d\s().-]{6,30}$/;
 
 export function validateContactForm(form) {
   const errors = {};
   const nom = form.nom?.trim() ?? "";
   const email = form.email?.trim() ?? "";
-  const telephone = form.telephone?.trim() ?? "";
+  const sujet = form.sujet?.trim() ?? "";
   const message = form.message?.trim() ?? "";
 
   if (!nom) {
@@ -14,19 +13,18 @@ export function validateContactForm(form) {
     errors.nom = "Le nom ne peut pas dépasser 100 caractères.";
   }
 
-  if (email && !EMAIL_PATTERN.test(email)) {
+  if (!email) {
+    errors.email = "L'e-mail est obligatoire pour que nous puissions vous répondre.";
+  } else if (!EMAIL_PATTERN.test(email)) {
     errors.email = "L'adresse e-mail n'est pas valide.";
   } else if (email.length > 255) {
     errors.email = "L'e-mail est trop long.";
   }
 
-  if (telephone && !PHONE_PATTERN.test(telephone)) {
-    errors.telephone = "Le numéro de téléphone n'est pas valide.";
-  }
-
-  if (!email && !telephone) {
-    errors._form =
-      "Indiquez au moins un e-mail ou un numéro de téléphone pour vous recontacter.";
+  if (!sujet) {
+    errors.sujet = "Le sujet est obligatoire.";
+  } else if (sujet.length > 120) {
+    errors.sujet = "Le sujet ne peut pas dépasser 120 caractères.";
   }
 
   if (!message) {

@@ -4,6 +4,8 @@ export const restaurantInfo = {
   /** Texte réel de l’enseigne */
   tagline: "Restaurant Snack BBQ & Shawarma au charbon",
   cuisine: "Cuisine syrienne",
+  /** Modes de service proposés */
+  services: ["Sur place", "À emporter", "Livraison"],
   address: {
     street: "Rue Jules Destrée 219",
     city: "7390 Quaregnon",

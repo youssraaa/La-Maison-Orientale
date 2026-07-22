@@ -33,6 +33,9 @@ public class DemandeClient {
     @Column(length = 30)
     private String telephone;
 
+    @Column(length = 120)
+    private String sujet;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
@@ -87,6 +90,14 @@ public class DemandeClient {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getSujet() {
+        return sujet;
+    }
+
+    public void setSujet(String sujet) {
+        this.sujet = sujet;
     }
 
     public String getMessage() {

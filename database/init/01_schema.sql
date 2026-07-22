@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS demande_client (
     nom                 VARCHAR(100) NOT NULL,
     email               VARCHAR(255),
     telephone           VARCHAR(30),
+    sujet               VARCHAR(120),
     message             TEXT NOT NULL,
     statut              VARCHAR(20) NOT NULL DEFAULT 'NOUVELLE',
     created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
