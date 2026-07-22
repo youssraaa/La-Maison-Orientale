@@ -1,24 +1,24 @@
 /**
- * Carte La Maison Orientale — données issues du menu officiel.
- * Prêt pour branchement API (GET /api/public/menu) ultérieur.
+ * Carte La Maison Orientale — alignée sur le menu papier officiel.
+ * Orthographe : Shawarma (enseigne du restaurant).
  */
 
 export const menuCategories = [
   {
     id: "entrees-froides",
     title: "Entrées froides",
+    image: "/images/gallery/photo-1447.png",
     items: [
       {
         name: "Hommos",
-        description:
-          "Purée de pois chiches, huile d'olive, paprika.",
-        price: 7.5,
+        description: "Purée de pois chiches, huile d'olive, paprika.",
+        price: 7,
       },
       {
         name: "Moutabal",
         description:
-          "Purée d'aubergines, sauce tahini (graines de sésame, citron, ail).",
-        price: 8,
+          "Purée d'aubergines, sauce tahini (à base de graines de sésame moulues, de citron et d'ail).",
+        price: 7,
       },
       {
         name: "Warak enab",
@@ -29,48 +29,54 @@ export const menuCategories = [
         name: "Salade fattouche",
         description:
           "Tomates, radis, poivron, concombre, oignon vert, citron, menthe, mélasse de grenade, graines de grenade.",
-        price: 9,
+        price: 10,
       },
       {
         name: "Taboulé",
         description: "Persil, oignons, citron, menthe, boulgour, huile d'olive.",
         price: 8,
       },
+      {
+        name: "Salade russe",
+        price: 3.5,
+      },
     ],
   },
   {
     id: "entrees-chaudes",
     title: "Entrées chaudes",
+    image: "/images/gallery/photo-1454.png",
     items: [
       { name: "Soupe de lentilles", price: 7 },
       {
         name: "Kebbé frit (3 pièces)",
         description: "Boulgour moulu, viande hachée, oignons, fruits secs.",
-        price: 9,
+        price: 10,
       },
       {
         name: "Fatayers aux épinards (3 pièces)",
         description:
           "Mélasse de grenade, graines de grenade, oignons, noix de cajou.",
-        price: 8,
+        price: 10,
       },
-      { name: "Fatayer jebnah (3 pièces)", price: 8 },
+      { name: "Fatayer jebnah (3 pièces)", price: 10 },
       {
         name: "Falafel",
         description:
-          "Purée de pois chiches, coriandre, persil, oignons, sauce tahini.",
+          "Purée de pois chiches, coriandre, persil, oignons, sauce tahini (à base de graines de sésame moulues, de citron et d'ail).",
         price: 8,
       },
       {
         name: "Batata harra",
         description: "Pommes de terre sautées piquantes.",
-        price: 7,
+        price: 8,
       },
     ],
   },
   {
     id: "accompagnements",
     title: "Accompagnements",
+    image: "/images/gallery/photo-0914.png",
     items: [
       { name: "Riz", price: 6 },
       {
@@ -82,65 +88,150 @@ export const menuCategories = [
   },
   {
     id: "sandwichs-shawarmas",
-    title: "Sandwichs & shawarmas",
+    title: "Nos sandwichs & shawarmas",
+    image: "/images/takeaway.png",
     items: [
-      { name: "Durum shawarma", price: 7.5 },
-      { name: "Durum pané au shawarma", price: 10 },
-      { name: "Durum falafel", price: 6.5 },
-      { name: "Durum kefta", price: 8 },
-      { name: "Durum brochettes de bœuf", price: 9 },
-      { name: "Durum brochettes d'agneau", price: 9 },
-      { name: "Sandwich shawarma", price: 9 },
-      { name: "Sandwich kefta", price: 9 },
-      { name: "Sandwich brochettes d'agneau", price: 9 },
-      { name: "Sandwich brochettes de bœuf", price: 9 },
+      { name: "Durum shawarma", price: 8.5 },
+      { name: "Durum shawarma plus frites", price: 12 },
+      { name: "Durum pané au shawarma", price: 12 },
+      { name: "Durum falafel", price: 7 },
+      { name: "Durum kefta", price: 10.5 },
+      { name: "Durum brochettes de bœuf", price: 10 },
+      { name: "Durum brochettes d'agneau", price: 11 },
+      { name: "Durum brochettes de poulet", price: 9.5 },
+      { name: "Sandwich shawarma", price: 9.5 },
+      {
+        name: "Plat shawarma",
+        description:
+          "Garniture : salade verte, salade russe, frites, sauce maison.",
+        price: 21,
+      },
+      {
+        name: "Plat shawarma arabi",
+        description:
+          "Garniture : salade verte, salade russe, frites, sauce maison.",
+        price: 20,
+      },
+      {
+        name: "Shawarma extra",
+        description:
+          "Garniture : salade verte, salade russe, frites, sauce maison.",
+        price: 25,
+      },
+      {
+        name: "Plat falafel arabi",
+        description: "Garniture : salade verte, cornichons, hommos.",
+        price: 15,
+      },
+    ],
+  },
+  {
+    id: "snacks",
+    title: "Sandwichs grillades, burgers & frites",
+    image: "/images/takeaway.png",
+    items: [
+      { name: "Sandwich brochettes de poulet", price: 10 },
+      { name: "Sandwich brochettes de bœuf", price: 10.5 },
+      { name: "Sandwich brochettes d'agneau", price: 11.5 },
+      { name: "Sandwich kefta", price: 11 },
+      { name: "Hamburger bœuf", price: 8 },
+      { name: "Hamburger poulet croustillant", price: 8 },
+      { name: "Filet de poulet croustillant (3 pièces)", price: 9 },
+      { name: "Frites petite portion", price: 3 },
+      { name: "Frites grande portion", price: 6 },
     ],
   },
   {
     id: "plats",
-    title: "Plats",
+    title: "Nos plats",
+    image: "/images/gallery/photo-7070.png",
+    note: "Garniture des assiettes : salade, boulgour, hommos, moutabal.",
     items: [
       {
-        name: "Plat shawarma arabi",
-        description:
-          "Garniture : salade verte, salade russe, cornichons, frites, sauce.",
-        price: 14,
+        name: "Côtelettes d'agneau (4 pièces)",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 28,
       },
       {
-        name: "Assiette shawarma",
-        description:
-          "Garniture : salade verte, salade russe, cornichons, riz, frites, sauce.",
-        price: 16,
+        name: "Kefta avec aubergines grillées",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 23.5,
       },
-      { name: "Hamburger bœuf", price: 8 },
-      { name: "Hamburger poulet croustillant", price: 7 },
-      { name: "Filet de poulet croustillant (3 pièces)", price: 9 },
-      { name: "Frites — petite portion", price: 3 },
-      { name: "Frites — grande portion", price: 6 },
+      {
+        name: "Brochettes d'agneau",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 24,
+      },
+      {
+        name: "Brochettes de bœuf",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 22.5,
+      },
+      {
+        name: "Brochettes de kefta",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 22,
+      },
+      {
+        name: "Brochettes de poulet",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 20,
+      },
+      {
+        name: "Ailes de poulet (5 pièces)",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 19,
+      },
+      {
+        name: "Pilons de poulet",
+        description: "Garniture : salade, boulgour, hommos, moutabal.",
+        price: 21,
+      },
+      {
+        name: "Brochettes mixte (1 personne)",
+        description:
+          "Garniture : salade, boulgour, hommos, moutabal, 5 brochettes mixtes.",
+        price: 31,
+      },
+      {
+        name: "1 kg grillade mixte (2 personnes)",
+        description:
+          "Garniture : légumes grillés à l'orientale, sauce maison, 10 brochettes mixtes.",
+        price: 55,
+      },
+      {
+        name: "Grand plateau de grillades mixtes (4 personnes)",
+        description:
+          "Servi avec un assortiment de mezzés maison : fattouches, boulgour, hommos, moutabal, frites, mhammara, sauce maison, 16 brochettes mixtes, légumes grillés à l'orientale.",
+        price: 110,
+        featured: true,
+      },
     ],
   },
   {
     id: "sauces",
     title: "Sauces",
-    note: "Disponibles sur demande.",
+    image: "/images/gallery/photo-2624.png",
+    note: "1,00 € l'unité.",
     items: [
-      { name: "Ail", price: null },
-      { name: "Ketchup", price: null },
-      { name: "Mayonnaise", price: null },
-      { name: "Samouraï", price: null },
-      { name: "Algérienne", price: null },
-      { name: "Andalouse", price: null },
-      { name: "Barbecue", price: null },
-      { name: "Américaine", price: null },
-      { name: "Tartare", price: null },
-      { name: "Brésilienne", price: null },
-      { name: "Ketchup curry", price: null },
-      { name: "Harissa", price: null },
+      { name: "Ail", price: 1 },
+      { name: "Ketchup", price: 1 },
+      { name: "Mayonnaise", price: 1 },
+      { name: "Samouraï", price: 1 },
+      { name: "Algérienne", price: 1 },
+      { name: "Andalouse", price: 1 },
+      { name: "Barbecue", price: 1 },
+      { name: "Américaine", price: 1 },
+      { name: "Tartare", price: 1 },
+      { name: "Brésilienne", price: 1 },
+      { name: "Ketchup curry", price: 1 },
+      { name: "Harissa", price: 1 },
     ],
   },
   {
     id: "boissons-chaudes",
-    title: "Boissons chaudes",
+    title: "Nos boissons chaudes",
+    image: "/images/gallery/photo-1322.png",
     subsections: [
       {
         title: "Café",
@@ -163,7 +254,8 @@ export const menuCategories = [
   },
   {
     id: "soft",
-    title: "Soft",
+    title: "Nos soft",
+    image: "/images/drinks-mint.png",
     subsections: [
       {
         title: "Eau",
@@ -193,11 +285,12 @@ export const menuCategories = [
       {
         title: "Bouteilles",
         items: [
-          { name: "Coca / Coca zéro", price: 2.5 },
-          { name: "Fanta orange", price: 2.5 },
-          { name: "Sprite", price: 2.5 },
-          { name: "Ice tea pêche", price: 2.5 },
-          { name: "Ice tea pétillant", price: 2.5 },
+          { name: "Coca / Coca zéro", price: 3 },
+          { name: "Fanta orange", price: 3 },
+          { name: "Sprite", price: 3 },
+          { name: "Ice tea pêche", price: 3 },
+          { name: "Ice tea pétillant", price: 3 },
+          { name: "Looza", price: 3 },
         ],
       },
     ],

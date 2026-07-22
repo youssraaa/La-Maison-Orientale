@@ -47,4 +47,18 @@ export const restaurantInfo = {
     score: "4,6",
     countLabel: "50 avis",
   },
+  owners: ["Salah Karayem", "Zakaria Karayem"],
+  /** Instagram vérifié. TikTok : lien provisoire à confirmer. */
+  socials: [
+    {
+      id: "instagram",
+      label: "Instagram",
+      href: "https://www.instagram.com/la_maisonorientale/",
+    },
+    {
+      id: "tiktok",
+      label: "TikTok",
+      href: "https://www.tiktok.com/@la_maisonorientale",
+    },
+  ],
 };

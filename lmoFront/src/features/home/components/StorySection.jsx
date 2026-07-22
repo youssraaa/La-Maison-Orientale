@@ -14,22 +14,23 @@ function StorySection() {
           </h2>
           <p>
             La Maison Orientale, c’est l’histoire de deux frères syriens
-            originaires d’Alep. À Quaregnon, en Belgique, ils ont ouvert leur
-            maison pour partager ce qu’ils aiment le plus : la cuisine
-            orientale syrienne, le goût du charbon et le plaisir de bien
+            originaires d’Alep, <strong>Salah Karayem</strong> et{" "}
+            <strong>Zakaria Karayem</strong>. À Quaregnon, en Belgique, ils ont
+            ouvert leur maison pour partager ce qu’ils aiment le plus : la
+            cuisine orientale syrienne, le goût du charbon et le plaisir de bien
             recevoir.
           </p>
           <p>
-            Rue Jules Destrée, on partage comme en famille. Mezzés généreux,
-            shawarma et grillades au charbon, une déco qui sent l’Orient et
-            une ambiance où l’on se sent immédiatement chez soi. Chaque plat
-            raconte un geste transmis : le tahini du moutabal, la mélasse de
-            grenade de la fattouche, le fumet des brochettes. Une cuisine
-            orientale syrienne vraie, pour le midi comme pour le soir, sur
-            place ou à emporter.
+            Autour de la table, on partage comme en famille : mezzés généreux,
+            shawarma et grillades au charbon, une déco qui sent l’Orient et une
+            ambiance où l’on se sent immédiatement chez soi. Chaque plat raconte
+            un geste transmis : le tahini du moutabal, la mélasse de grenade de
+            la fattouche, le fumet des brochettes. Une cuisine orientale
+            syrienne vraie, pour le midi comme pour le soir, sur place ou à
+            emporter.
           </p>
           <p className="story-section__quote">
-            «&nbsp;Ici, on partage l’Orient comme à la maison.&nbsp;»
+            «&nbsp;On partage l’Orient comme à la maison.&nbsp;»
           </p>
           <Link to="/menu" className="text-link">
             Découvrir la carte →
