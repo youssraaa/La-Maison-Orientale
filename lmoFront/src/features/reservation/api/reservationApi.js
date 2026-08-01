@@ -7,6 +7,44 @@ const ERROR_MESSAGES = {
   unknown: "Une erreur est survenue lors de l'envoi.",
 };
 
+async function parseError(response) {
+  const data = await response.json().catch(() => ({}));
+  const error = new Error(
+    data.message ||
+      (response.status >= 500 ? ERROR_MESSAGES.server : ERROR_MESSAGES.unknown)
+  );
+  error.status = response.status;
+  error.fieldErrors = data.fieldErrors || {};
+  error.code =
+    response.status === 400
+      ? "VALIDATION"
+      : response.status >= 500
+        ? "SERVER"
+        : "UNKNOWN";
+  return error;
+}
+
+export async function fetchAvailability(date, nbPersonnes = 2) {
+  let response;
+  try {
+    const params = new URLSearchParams({
+      date,
+      nbPersonnes: String(nbPersonnes),
+    });
+    response = await fetch(`${RESERVATION_ENDPOINT}/availability?${params}`);
+  } catch {
+    const error = new Error(ERROR_MESSAGES.network);
+    error.code = "NETWORK";
+    throw error;
+  }
+
+  if (!response.ok) {
+    throw await parseError(response);
+  }
+
+  return response.json();
+}
+
 export async function submitReservation(payload) {
   let response;
 
@@ -22,22 +60,9 @@ export async function submitReservation(payload) {
     throw error;
   }
 
-  const data = await response.json().catch(() => ({}));
-
   if (!response.ok) {
-    const error = new Error(
-      data.message || (response.status >= 500 ? ERROR_MESSAGES.server : ERROR_MESSAGES.unknown)
-    );
-    error.status = response.status;
-    error.fieldErrors = data.fieldErrors || {};
-    error.code =
-      response.status === 400
-        ? "VALIDATION"
-        : response.status >= 500
-          ? "SERVER"
-          : "UNKNOWN";
-    throw error;
+    throw await parseError(response);
   }
 
-  return data;
+  return response.json();
 }

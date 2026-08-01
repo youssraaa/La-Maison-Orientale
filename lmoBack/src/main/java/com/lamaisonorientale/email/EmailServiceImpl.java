@@ -127,6 +127,111 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @Override
+    public void sendReservationNotificationToRestaurant(
+            Long reservationId,
+            String nom,
+            String email,
+            String telephone,
+            java.time.LocalDate date,
+            java.time.LocalTime heure,
+            Integer nbPersonnes,
+            String commentaire,
+            Instant createdAt) {
+        ensureConfigured();
+
+        String body = """
+                Nouvelle demande de réservation — La Maison Orientale
+
+                Référence : #%d
+                Date demande : %s
+
+                Nom : %s
+                Téléphone : %s
+                E-mail : %s
+
+                Date souhaitée : %s
+                Heure : %s
+                Couverts : %d
+
+                Commentaire :
+                %s
+
+                —
+                Réservation CONFIRMÉE automatiquement (créneau disponible au moment de la demande).
+                """.formatted(
+                reservationId,
+                DATE_FORMAT.format(createdAt),
+                nom,
+                telephone,
+                displayOrDash(email),
+                date.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                heure,
+                nbPersonnes,
+                StringUtils.hasText(commentaire) ? commentaire.trim() : "—");
+
+        try {
+            sendPlain(
+                    restaurantTo,
+                    "[Réservation confirmée] " + date + " " + heure + " — " + nom + " (" + nbPersonnes + " pers.)",
+                    body,
+                    StringUtils.hasText(email) ? email.trim() : null,
+                    "Impossible d'envoyer la notification de réservation au restaurant.");
+        } catch (EmailDeliveryException ex) {
+            log.warn(
+                    "Notification restaurant non envoyée pour réservation #{} : {}",
+                    reservationId,
+                    ex.getMessage());
+        }
+    }
+
+    @Override
+    public void sendReservationAcknowledgementToClient(
+            String clientEmail,
+            String nom,
+            java.time.LocalDate date,
+            java.time.LocalTime heure,
+            Integer nbPersonnes) {
+        if (!StringUtils.hasText(clientEmail)) {
+            return;
+        }
+        ensureConfigured();
+
+        String body = """
+                Bonjour %s,
+
+                Nous avons bien reçu votre réservation. Votre table est confirmée.
+
+                Date : %s
+                Heure : %s
+                Couverts : %d
+
+                La table est conservée jusqu’à 15 minutes après l’heure prévue.
+
+                Une question ? Appelez-nous au %s
+
+                À bientôt,
+                La Maison Orientale
+                Rue Jules Destrée 219, 7390 Quaregnon
+                """.formatted(
+                nom,
+                date.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                heure,
+                nbPersonnes,
+                restaurantPhone);
+
+        try {
+            sendPlain(
+                    clientEmail.trim(),
+                    "La Maison Orientale — votre table est réservée",
+                    body,
+                    restaurantTo,
+                    null);
+        } catch (EmailDeliveryException ex) {
+            log.warn("Accusé réservation non envoyé au client {} : {}", clientEmail, ex.getMessage());
+        }
+    }
+
     private void sendPlain(
             String to,
             String subject,
@@ -159,5 +264,9 @@ public class EmailServiceImpl implements EmailService {
             throw new EmailDeliveryException(
                     "Configuration mail incomplète : définissez MAIL_FROM et MAIL_RESTAURANT_TO dans .env");
         }
+    }
+
+    private static String displayOrDash(String value) {
+        return StringUtils.hasText(value) ? value.trim() : "—";
     }
 }

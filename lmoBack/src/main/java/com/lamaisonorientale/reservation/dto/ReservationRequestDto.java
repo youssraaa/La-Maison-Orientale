@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,12 +22,13 @@ public record ReservationRequestDto(
         @Size(max = 30, message = "Le téléphone ne peut pas dépasser 30 caractères")
         String telephone,
 
+        @NotBlank(message = "L'e-mail est obligatoire")
         @Email(message = "L'adresse e-mail n'est pas valide")
         @Size(max = 255)
         String email,
 
         @NotNull(message = "La date est obligatoire")
-        @Future(message = "La date doit être dans le futur")
+        @FutureOrPresent(message = "La date ne peut pas être dans le passé")
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate date,
 

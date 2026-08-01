@@ -1,6 +1,7 @@
 /**
  * Carte La Maison Orientale — alignée sur le menu papier officiel.
- * Orthographe : Shawarma (enseigne du restaurant).
+ * Titres de section = uniquement ceux présents sur le papier.
+ * Orthographe site : Shawarma (enseigne).
  */
 
 export const menuCategories = [
@@ -71,13 +72,6 @@ export const menuCategories = [
         description: "Pommes de terre sautées piquantes.",
         price: 8,
       },
-    ],
-  },
-  {
-    id: "accompagnements",
-    title: "Accompagnements",
-    image: "/images/gallery/photo-0914.png",
-    items: [
       { name: "Riz", price: 6 },
       {
         name: "Boulgour",
@@ -123,13 +117,6 @@ export const menuCategories = [
         description: "Garniture : salade verte, cornichons, hommos.",
         price: 15,
       },
-    ],
-  },
-  {
-    id: "snacks",
-    title: "Sandwichs grillades, burgers & frites",
-    image: "/images/takeaway.png",
-    items: [
       { name: "Sandwich brochettes de poulet", price: 10 },
       { name: "Sandwich brochettes de bœuf", price: 10.5 },
       { name: "Sandwich brochettes d'agneau", price: 11.5 },
@@ -142,10 +129,29 @@ export const menuCategories = [
     ],
   },
   {
+    id: "sauces",
+    title: "Sauces",
+    image: "/images/gallery/photo-2624.png",
+    note: "1,00 € l'unité.",
+    items: [
+      { name: "Ail", price: 1 },
+      { name: "Ketchup", price: 1 },
+      { name: "Mayonnaise", price: 1 },
+      { name: "Samouraï", price: 1 },
+      { name: "Algérienne", price: 1 },
+      { name: "Andalouse", price: 1 },
+      { name: "Barbecue", price: 1 },
+      { name: "Américaine", price: 1 },
+      { name: "Tartare", price: 1 },
+      { name: "Brésilienne", price: 1 },
+      { name: "Ketchup curry", price: 1 },
+      { name: "Harissa", price: 1 },
+    ],
+  },
+  {
     id: "plats",
     title: "Nos plats",
     image: "/images/gallery/photo-7070.png",
-    note: "Garniture des assiettes : salade, boulgour, hommos, moutabal.",
     items: [
       {
         name: "Côtelettes d'agneau (4 pièces)",
@@ -200,32 +206,12 @@ export const menuCategories = [
         price: 55,
       },
       {
-        name: "Grand plateau de grillades mixtes (4 personnes)",
+        name: "Grand plateau de grillades mixtes pour 4 personnes, servis avec un assortiment de mezzés maison",
         description:
-          "Servi avec un assortiment de mezzés maison : fattouches, boulgour, hommos, moutabal, frites, mhammara, sauce maison, 16 brochettes mixtes, légumes grillés à l'orientale.",
+          "Fattouches, boulgour, hommos, moutabal, frites, mhammara, sauce maison, 16 brochettes mixtes, légumes grillés à l'orientale.",
         price: 110,
         featured: true,
       },
-    ],
-  },
-  {
-    id: "sauces",
-    title: "Sauces",
-    image: "/images/gallery/photo-2624.png",
-    note: "1,00 € l'unité.",
-    items: [
-      { name: "Ail", price: 1 },
-      { name: "Ketchup", price: 1 },
-      { name: "Mayonnaise", price: 1 },
-      { name: "Samouraï", price: 1 },
-      { name: "Algérienne", price: 1 },
-      { name: "Andalouse", price: 1 },
-      { name: "Barbecue", price: 1 },
-      { name: "Américaine", price: 1 },
-      { name: "Tartare", price: 1 },
-      { name: "Brésilienne", price: 1 },
-      { name: "Ketchup curry", price: 1 },
-      { name: "Harissa", price: 1 },
     ],
   },
   {

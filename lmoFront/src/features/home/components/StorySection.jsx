@@ -26,8 +26,8 @@ function StorySection() {
             ambiance où l’on se sent immédiatement chez soi. Chaque plat raconte
             un geste transmis : le tahini du moutabal, la mélasse de grenade de
             la fattouche, le fumet des brochettes. Une cuisine orientale
-            syrienne vraie, pour le midi comme pour le soir, sur place ou à
-            emporter.
+            syrienne vraie, pour le midi comme pour le soir : sur place, à
+            emporter ou en livraison.
           </p>
           <p className="story-section__quote">
             «&nbsp;On partage l’Orient comme à la maison.&nbsp;»

@@ -1,7 +1,7 @@
 import { restaurantInfo } from "../../../common/data/restaurantInfo";
 
 function LocationSection() {
-  const { address, phone, hours, map } = restaurantInfo;
+  const { address, phone, hours, map, services } = restaurantInfo;
 
   return (
     <section className="location-section" id="nous-trouver">
@@ -19,6 +19,12 @@ function LocationSection() {
                 {address.city}
               </p>
             </div>
+            {services?.length > 0 && (
+              <div>
+                <span className="location-section__label">Service</span>
+                <p>{services.join(" · ")}</p>
+              </div>
+            )}
             {phone?.display && (
               <div>
                 <span className="location-section__label">Téléphone</span>

@@ -7,10 +7,12 @@ export const homePreviewImages = [
   { src: "/images/gallery/photo-2624.png", alt: "Vitrine de viandes et légumes frais" },
 ];
 
-/** Galerie : façade en premier, 1 terrasse + photos uniques (sans menus) */
+/** Galerie : façade en premier, 1 terrasse + salle + photos uniques (sans menus) */
 export const galleryImages = [
   { src: "/images/gallery/photo-1972.png", alt: "Façade de La Maison Orientale" },
   { src: "/images/terrace.jpg", alt: "Terrasse de La Maison Orientale" },
+  { src: "/images/gallery/salle-1.png", alt: "Salle de La Maison Orientale" },
+  { src: "/images/gallery/salle-2.png", alt: "Intérieur de La Maison Orientale" },
   ...[
     "0547",
     "0765-1",

@@ -4,7 +4,13 @@ function PublicNavbar() {
   return (
     <header className="navbar">
       <Link to="/" className="navbar__logo">
-        <img src="/images/logo-round.png" alt="" aria-hidden />
+        <img
+          src="/images/logo-nav.png"
+          width={58}
+          height={58}
+          alt=""
+          aria-hidden
+        />
         <span>La Maison Orientale</span>
       </Link>
 

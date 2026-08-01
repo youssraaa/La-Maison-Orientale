@@ -1,21 +1,33 @@
+import { restaurantInfo } from "../../../common/data/restaurantInfo";
+
 function CuisineBanner() {
+  const { services } = restaurantInfo;
+
   return (
     <section className="cuisine-banner">
       <div className="cuisine-banner__inner">
         <p className="section-kicker section-kicker--light">Sur la carte</p>
-        <h2>Des saveurs qui restent en mémoire</h2>
+        <h2>
+          Des saveurs qui restent en
+          <br />
+          mémoire
+        </h2>
         <p>
-          Entrées, salades, shawarmas, plats et grillades, café syrien, thé et
-          boissons : toute une carte pour se régaler, du début à la fin du
-          repas.
+          Notre restaurant syrien vous invite à découvrir les saveurs du
+          Moyen-Orient : shawarma, grillades, houmous et bien plus, préparés
+          chaque jour avec des produits{"\u00a0"}frais.
         </p>
+        <ul className="cuisine-banner__services" aria-label="Modes de service">
+          {services.map((label) => (
+            <li key={label}>{label}</li>
+          ))}
+        </ul>
         <ul className="cuisine-banner__tags" aria-label="Spécialités">
-          <li>Entrées savoureuses</li>
-          <li>Plats généreux</li>
-          <li>Sandwichs &amp; shawarmas parfumés</li>
-          <li>Café syrien authentique</li>
+          <li>Shawarma</li>
+          <li>Grillades mixtes</li>
+          <li>Houmous &amp; taboulé</li>
+          <li>Café syrien</li>
           <li>Thé à la menthe</li>
-          <li>Boissons froides</li>
         </ul>
       </div>
     </section>

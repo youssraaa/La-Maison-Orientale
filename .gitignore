@@ -29,3 +29,7 @@ Thumbs.db
 
 # Docker volumes (donnees locales)
 postgres_data/
+
+# Extrait local de reference (ne pas committer)
+_ref_glop/
+

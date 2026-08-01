@@ -1,6 +1,8 @@
 package com.lamaisonorientale.email;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,5 +31,35 @@ public class EmailServiceTestImpl implements EmailService {
     public void sendContactAcknowledgementToClient(
             String clientEmail, String nom, String sujet, String message) {
         log.debug("Mock e-mail client : accusé pour {} (sujet : {})", clientEmail, sujet);
+    }
+
+    @Override
+    public void sendReservationNotificationToRestaurant(
+            Long reservationId,
+            String nom,
+            String email,
+            String telephone,
+            LocalDate date,
+            LocalTime heure,
+            Integer nbPersonnes,
+            String commentaire,
+            Instant createdAt) {
+        log.debug(
+                "Mock e-mail réservation #{} : {} le {} à {} ({} pers.)",
+                reservationId,
+                nom,
+                date,
+                heure,
+                nbPersonnes);
+    }
+
+    @Override
+    public void sendReservationAcknowledgementToClient(
+            String clientEmail,
+            String nom,
+            LocalDate date,
+            LocalTime heure,
+            Integer nbPersonnes) {
+        log.debug("Mock accusé réservation pour {} : {} {}", clientEmail, date, heure);
     }
 }

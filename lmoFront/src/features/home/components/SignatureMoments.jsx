@@ -28,8 +28,9 @@ function SignatureMoments() {
         <p className="section-kicker">À table</p>
         <h2>Ce qui vous attend</h2>
         <p>
-          Notre carte vous accueille pour un déjeuner, un dîner ou un emporter.
-          Entrées, plats, sandwichs et boissons, dans une ambiance chaleureuse.
+          Notre carte vous accueille pour un déjeuner, un dîner, un emporter ou
+          une livraison. Entrées, plats, sandwichs et boissons, dans une
+          ambiance chaleureuse.
         </p>
       </div>
 
