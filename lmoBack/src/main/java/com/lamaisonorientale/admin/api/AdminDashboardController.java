@@ -2,6 +2,7 @@ package com.lamaisonorientale.admin.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lamaisonorientale.admin.application.AdminDashboardService;
@@ -18,7 +19,7 @@ public class AdminDashboardController {
     }
 
     @GetMapping("/dashboard")
-    public AdminDashboardDto dashboard() {
-        return adminDashboardService.getDashboard();
+    public AdminDashboardDto dashboard(@RequestParam(defaultValue = "7") int days) {
+        return adminDashboardService.getDashboard(days);
     }
 }

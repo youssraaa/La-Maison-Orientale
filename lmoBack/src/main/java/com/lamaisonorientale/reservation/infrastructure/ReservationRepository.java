@@ -44,10 +44,55 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     long countByStatut(StatutReservation statut);
 
+    long countByDateReservationBetween(LocalDate from, LocalDate to);
+
+    long countByDateReservationBetweenAndStatut(
+            LocalDate from, LocalDate to, StatutReservation statut);
+
     List<Reservation> findByDateReservationAndStatutInOrderByHeureReservationAsc(
             LocalDate date, Collection<StatutReservation> statuts);
 
     List<Reservation>
             findByDateReservationBetweenAndStatutInOrderByDateReservationAscHeureReservationAsc(
                     LocalDate from, LocalDate to, Collection<StatutReservation> statuts);
+
+    @Query(
+            value =
+                    """
+                    SELECT date_reservation, COUNT(*), COALESCE(SUM(nb_personnes), 0)
+                    FROM reservation
+                    WHERE date_reservation BETWEEN :fromDate AND :toDate
+                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                    GROUP BY date_reservation
+                    ORDER BY date_reservation
+                    """,
+            nativeQuery = true)
+    List<Object[]> aggregateActiveByDate(
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
+
+    @Query(
+            value =
+                    """
+                    SELECT statut, COUNT(*)
+                    FROM reservation
+                    WHERE date_reservation BETWEEN :fromDate AND :toDate
+                    GROUP BY statut
+                    """,
+            nativeQuery = true)
+    List<Object[]> countGroupedByStatut(
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
+
+    @Query(
+            value =
+                    """
+                    SELECT EXTRACT(HOUR FROM heure_reservation)::int, COUNT(*)
+                    FROM reservation
+                    WHERE date_reservation BETWEEN :fromDate AND :toDate
+                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                    GROUP BY EXTRACT(HOUR FROM heure_reservation)
+                    ORDER BY 1
+                    """,
+            nativeQuery = true)
+    List<Object[]> countActiveGroupedByHour(
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
 }

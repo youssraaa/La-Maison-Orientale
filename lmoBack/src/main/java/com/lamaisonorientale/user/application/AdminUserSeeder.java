@@ -45,27 +45,37 @@ public class AdminUserSeeder implements ApplicationRunner {
             return;
         }
 
-        String email = adminEmail.trim().toLowerCase();
-        if (utilisateurRepository.existsByEmailIgnoreCase(email)) {
-            log.info("Compte admin déjà présent : {}", email);
-            return;
-        }
-
         if (adminPassword.length() < 8) {
             log.error("Mot de passe admin trop court (min. 8 caractères) — seed annulé.");
             return;
         }
 
-        Utilisateur admin = Utilisateur.builder()
-                .email(email)
-                .motDePasseHash(passwordEncoder.encode(adminPassword))
-                .nom(adminNom)
-                .role(RoleUtilisateur.ADMIN)
-                .actif(true)
-                .createdAt(Instant.now())
-                .build();
+        String email = adminEmail.trim().toLowerCase();
+        String hash = passwordEncoder.encode(adminPassword);
 
-        utilisateurRepository.save(admin);
-        log.info("Compte admin créé : {}", email);
+        utilisateurRepository
+                .findByEmailIgnoreCase(email)
+                .ifPresentOrElse(
+                        existing -> {
+                            existing.setMotDePasseHash(hash);
+                            existing.setActif(true);
+                            if (existing.getRole() == null) {
+                                existing.setRole(RoleUtilisateur.ADMIN);
+                            }
+                            utilisateurRepository.save(existing);
+                            log.info("Mot de passe admin mis à jour : {}", email);
+                        },
+                        () -> {
+                            Utilisateur admin = Utilisateur.builder()
+                                    .email(email)
+                                    .motDePasseHash(hash)
+                                    .nom(adminNom)
+                                    .role(RoleUtilisateur.ADMIN)
+                                    .actif(true)
+                                    .createdAt(Instant.now())
+                                    .build();
+                            utilisateurRepository.save(admin);
+                            log.info("Compte admin créé : {}", email);
+                        });
     }
 }

@@ -8,7 +8,9 @@ import java.util.List;
 public record AdminDashboardDto(
         LocalDate today,
         boolean closedToday,
+        int days,
         DashboardKpisDto kpis,
+        DashboardChartsDto charts,
         List<ReservationRowDto> todayReservations,
         List<ReservationRowDto> upcomingReservations,
         List<MessageRowDto> recentMessages) {
@@ -18,7 +20,24 @@ public record AdminDashboardDto(
             long coversToday,
             long reservationsWeek,
             long pendingReservations,
-            long newMessages) {}
+            long newMessages,
+            long reservationsPeriod,
+            long coversPeriod,
+            long messagesPeriod,
+            int confirmationRate) {}
+
+    public record DashboardChartsDto(
+            List<DailyPointDto> reservationsByDay,
+            List<DailyPointDto> coversByDay,
+            List<DailyPointDto> messagesByDay,
+            List<StatusPointDto> reservationsByStatus,
+            List<HourPointDto> reservationsByHour) {}
+
+    public record DailyPointDto(String date, String label, long value) {}
+
+    public record StatusPointDto(String statut, String label, long value) {}
+
+    public record HourPointDto(String heure, String label, long value) {}
 
     public record ReservationRowDto(
             Long id,
