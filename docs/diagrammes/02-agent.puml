@@ -1,0 +1,101 @@
+@startuml Diagramme_Agent
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #FFF9C4
+  BorderColor #333
+}
+
+title Restaurant La Maison Orientale — Agent
+
+actor "Agent" as Agent
+
+rectangle "Restaurant La Maison Orientale" {
+  usecase "UC01 : consulter le\n tableau de bord" as UC01
+  usecase "UC01-01 : générer un rapport\nd'activité PDF" as UC01_01
+
+  usecase "UC02 : gérer les réservations" as UC02
+  usecase "UC02-01 : consulter les réservations\ndu jour" as UC02_01
+  usecase "UC02-02 : consulter\nl'historique" as UC02_02
+  usecase "UC02-03 : consulter les détails\nd'une réservation" as UC02_03
+  usecase "UC02-04 : suivre les changements\nclient (confirmation / annulation)" as UC02_04
+  usecase "UC02-05 : marquer le client\nprésenté ou absent" as UC02_05
+
+  usecase "UC03 : gérer les horaires\net fermetures" as UC03
+
+  usecase "UC04 : gérer les commandes" as UC04
+  usecase "UC04-01 : consulter une commande" as UC04_01
+  usecase "UC04-02 : consulter les commandes\ndu jour" as UC04_02
+  usecase "UC04-03 : consulter l'historique\ndes commandes" as UC04_03
+  usecase "UC04-04 : consulter les plats\net la facture" as UC04_04
+  usecase "UC04-05 : prendre en charge\net préparer" as UC04_05
+  usecase "UC04-06 : marquer prête" as UC04_06
+  usecase "UC04-07 : marquer remise\n(à emporter)" as UC04_07
+  usecase "UC04-08 : marquer livrée\n(livraison)" as UC04_08
+  usecase "UC04-09 : notifier le client\npar notification ou e-mail" as UC04_09
+
+  usecase "UC05 : gérer la carte\net les tarifs" as UC05
+  usecase "UC06 : gérer la galerie photos" as UC06
+  usecase "UC07 : gérer les informations\net services du restaurant" as UC07
+  usecase "UC08 : gérer les paramètres\nréservation / commande" as UC08
+
+  usecase "UC09 : consulter les clients\ninscrits" as UC09
+  usecase "UC09-01 : consulter le détail\nd'un client" as UC09_01
+
+  usecase "UC10 : gérer les messages" as UC10
+  usecase "UC10-01 : consulter un message" as UC10_01
+  usecase "UC10-02 : répondre à un message" as UC10_02
+
+  usecase "UC11 : consulter les\nnotifications" as UC11
+  usecase "UC12 : gérer son profil" as UC12
+}
+
+Agent --> UC01
+Agent --> UC02
+Agent --> UC03
+Agent --> UC04
+Agent --> UC05
+Agent --> UC06
+Agent --> UC07
+Agent --> UC08
+Agent --> UC09
+Agent --> UC10
+Agent --> UC11
+Agent --> UC12
+
+UC01 ..> UC01_01 : <<extend>>
+UC02 ..> UC02_01 : <<include>>
+UC02 ..> UC02_02 : <<include>>
+UC02 ..> UC02_03 : <<include>>
+UC02 ..> UC02_04 : <<include>>
+UC02 ..> UC02_05 : <<include>>
+UC04 ..> UC04_01 : <<include>>
+UC04 ..> UC04_02 : <<include>>
+UC04 ..> UC04_03 : <<include>>
+UC04 ..> UC04_04 : <<include>>
+UC04 ..> UC04_05 : <<include>>
+UC04 ..> UC04_06 : <<include>>
+UC04 ..> UC04_07 : <<extend>>
+UC04 ..> UC04_08 : <<extend>>
+UC04_05 ..> UC04_09 : <<include>>
+UC04_06 ..> UC04_09 : <<include>>
+UC04_07 ..> UC04_09 : <<include>>
+UC04_08 ..> UC04_09 : <<include>>
+UC09 ..> UC09_01 : <<include>>
+UC10 ..> UC10_01 : <<include>>
+UC10 ..> UC10_02 : <<include>>
+
+note right of UC02
+  La réservation est confirmée ou annulée
+  par le client. L'agent ne modifie pas
+  ces décisions ; il suit uniquement leur
+  apparition dans son espace.
+end note
+
+note right of UC04
+  Le statut final dépend du mode :
+  REMISE pour une commande à emporter,
+  LIVRÉE pour une commande en livraison.
+end note
+
+@enduml

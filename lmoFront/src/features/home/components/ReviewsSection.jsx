@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { restaurantInfo } from "../../../common/data/restaurantInfo";
+import useRestaurantInfo from "../../../common/hooks/useRestaurantInfo";
 import { homeReviews } from "../data/reviewsData";
 
 const PAGE_COUNT = 3;
@@ -13,6 +13,7 @@ function Stars({ value }) {
 }
 
 function ReviewsSection() {
+  const { info } = useRestaurantInfo();
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(3);
 
@@ -62,16 +63,16 @@ function ReviewsSection() {
             <span className="reviews-summary__brand">Google Avis</span>
             <div className="reviews-summary__row">
               <strong className="reviews-summary__number">
-                {restaurantInfo.googleRating.score}
+                {info.googleRating.score}
               </strong>
               <Stars value={5} />
               <span className="reviews-summary__count">
-                ({restaurantInfo.googleRating.countLabel})
+                ({info.googleRating.countLabel})
               </span>
             </div>
           </div>
           <a
-            href={restaurantInfo.googleReviewsUrl}
+            href={info.googleReviewsUrl}
             className="btn btn--gold"
             target="_blank"
             rel="noreferrer"

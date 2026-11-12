@@ -1,9 +1,11 @@
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import {
+  CONTACT_FIELD_MESSAGES,
+  validateEmail,
+} from "../../../common/utils/contactFieldValidation";
 
 export function validateContactForm(form) {
   const errors = {};
   const nom = form.nom?.trim() ?? "";
-  const email = form.email?.trim() ?? "";
   const sujet = form.sujet?.trim() ?? "";
   const message = form.message?.trim() ?? "";
 
@@ -13,13 +15,8 @@ export function validateContactForm(form) {
     errors.nom = "Le nom ne peut pas dépasser 100 caractères.";
   }
 
-  if (!email) {
-    errors.email = "L'e-mail est obligatoire pour que nous puissions vous répondre.";
-  } else if (!EMAIL_PATTERN.test(email)) {
-    errors.email = "L'adresse e-mail n'est pas valide.";
-  } else if (email.length > 255) {
-    errors.email = "L'e-mail est trop long.";
-  }
+  const emailError = validateEmail(form.email, { required: true });
+  if (emailError) errors.email = emailError;
 
   if (!sujet) {
     errors.sujet = "Le sujet est obligatoire.";
@@ -41,3 +38,5 @@ export function validateContactForm(form) {
 export function hasValidationErrors(errors) {
   return Object.keys(errors).length > 0;
 }
+
+export { CONTACT_FIELD_MESSAGES };

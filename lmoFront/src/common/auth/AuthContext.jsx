@@ -45,6 +45,11 @@ export default function AuthProvider({ children }) {
     localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
   };
 
+  const updateUser = (nextUser) => {
+    setUser(nextUser);
+    localStorage.setItem(USER_KEY, JSON.stringify(nextUser));
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -60,6 +65,7 @@ export default function AuthProvider({ children }) {
         role: user?.role,
         isAuthenticated: Boolean(token),
         login,
+        updateUser,
         logout,
       }}
     >

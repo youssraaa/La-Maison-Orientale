@@ -1,7 +1,23 @@
-import { restaurantInfo } from "../../../common/data/restaurantInfo";
+import useRestaurantInfo from "../../../common/hooks/useRestaurantInfo";
+import ContactIcon from "../../contact/components/ContactIcons";
+
+function LocationRow({ icon, label, children }) {
+  return (
+    <div className="location-section__item">
+      <span className="location-section__icon" aria-hidden="true">
+        <ContactIcon name={icon} />
+      </span>
+      <div className="location-section__item-body">
+        <span className="location-section__label">{label}</span>
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function LocationSection() {
-  const { address, phone, hours, map, services } = restaurantInfo;
+  const { info } = useRestaurantInfo();
+  const { address, phone, hours, map, services } = info;
 
   return (
     <section className="location-section" id="nous-trouver">
@@ -9,32 +25,34 @@ function LocationSection() {
         <div className="location-section__panel">
           <p className="section-kicker section-kicker--light">Nous trouver</p>
           <h2>Au cœur de Quaregnon</h2>
+          <p className="location-section__intro">
+            La Maison Orientale vous accueille à Quaregnon&nbsp;!
+          </p>
 
           <div className="location-section__details">
-            <div>
-              <span className="location-section__label">Adresse</span>
+            <LocationRow icon="pin" label="Adresse">
               <p>
                 {address.street}
                 <br />
                 {address.city}
               </p>
-            </div>
-            {services?.length > 0 && (
-              <div>
-                <span className="location-section__label">Service</span>
+            </LocationRow>
+
+            {services?.length > 0 ? (
+              <LocationRow icon="service" label="Service">
                 <p>{services.join(" · ")}</p>
-              </div>
-            )}
-            {phone?.display && (
-              <div>
-                <span className="location-section__label">Téléphone</span>
+              </LocationRow>
+            ) : null}
+
+            {phone?.display ? (
+              <LocationRow icon="phone" label="Téléphone">
                 <p>
                   <a href={phone.href}>{phone.display}</a>
                 </p>
-              </div>
-            )}
-            <div>
-              <span className="location-section__label">Horaires</span>
+              </LocationRow>
+            ) : null}
+
+            <LocationRow icon="clock" label="Horaires">
               <ul className="location-section__hours">
                 {hours.schedule.map((row) => (
                   <li key={row.day}>
@@ -43,17 +61,20 @@ function LocationSection() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </LocationRow>
           </div>
 
-          <a
-            className="btn btn--gold"
-            href={map.googleDirections}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Obtenir l’itinéraire
-          </a>
+          <div className="location-section__cta-wrap">
+            <a
+              className="btn btn--gold location-section__cta"
+              href={map.googleDirections}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ContactIcon name="pin" />
+              <span>Obtenir l&apos;itinéraire</span>
+            </a>
+          </div>
         </div>
 
         <div className="location-section__map">

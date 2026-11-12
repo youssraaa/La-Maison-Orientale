@@ -1,7 +1,10 @@
 package com.lamaisonorientale.demande.dto;
 
+import com.lamaisonorientale.common.validation.ValidationMessages;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record ContactRequestDto(
@@ -10,11 +13,12 @@ public record ContactRequestDto(
         String nom,
 
         @NotBlank(message = "L'e-mail est obligatoire pour que nous puissions vous répondre")
-        @Email(message = "L'adresse e-mail n'est pas valide")
-        @Size(max = 255)
+        @Email(message = ValidationMessages.EMAIL_INVALID)
+        @Size(max = 255, message = ValidationMessages.EMAIL_TOO_LONG)
         String email,
 
-        @Size(max = 30, message = "Le téléphone ne peut pas dépasser 30 caractères")
+        @Pattern(regexp = ValidationMessages.PHONE_PATTERN, message = ValidationMessages.PHONE_INVALID)
+        @Size(max = 30, message = ValidationMessages.PHONE_TOO_LONG)
         String telephone,
 
         @NotBlank(message = "Le sujet est obligatoire")

@@ -4,5 +4,7 @@ public enum StatutReservation {
     EN_ATTENTE,
     CONFIRMEE,
     REFUSEE,
-    ANNULEE
+    ANNULEE,
+    ARRIVEE,
+    NO_SHOW
 }

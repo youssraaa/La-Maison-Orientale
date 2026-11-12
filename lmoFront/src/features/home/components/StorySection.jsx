@@ -5,7 +5,7 @@ function StorySection() {
     <section className="story-section" id="notre-maison">
       <div className="story-section__inner">
         <div className="story-section__text">
-          <p className="section-kicker">Notre histoire</p>
+          <p className="section-kicker section-kicker--pine">Notre histoire</p>
           <h2>
             Deux frères d’Alep,{" "}
             <span className="story-section__title-keep">

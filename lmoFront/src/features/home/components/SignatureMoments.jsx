@@ -25,7 +25,7 @@ function SignatureMoments() {
   return (
     <section className="signature-moments">
       <div className="signature-moments__intro">
-        <p className="section-kicker">À table</p>
+        <p className="section-kicker section-kicker--burgundy">À table</p>
         <h2>Ce qui vous attend</h2>
         <p>
           Notre carte vous accueille pour un déjeuner, un dîner, un emporter ou

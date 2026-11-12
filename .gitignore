@@ -29,6 +29,8 @@ Thumbs.db
 
 # Docker volumes (donnees locales)
 postgres_data/
+lmoBack/uploads/
+uploads/
 
 # Extrait local de reference (ne pas committer)
 _ref_glop/

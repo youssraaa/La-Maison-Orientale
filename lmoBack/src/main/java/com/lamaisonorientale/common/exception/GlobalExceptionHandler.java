@@ -61,13 +61,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailDeliveryException.class)
     public ResponseEntity<ApiErrorResponse> handleMailFailure(EmailDeliveryException ex) {
+        String detail = ex.getMessage() != null && !ex.getMessage().isBlank()
+                ? ex.getMessage()
+                : "Impossible d'envoyer l'e-mail. Vérifiez la configuration mail.";
         ApiErrorResponse body = new ApiErrorResponse(
                 Instant.now(),
                 HttpStatus.SERVICE_UNAVAILABLE.value(),
                 "Envoi e-mail impossible",
-                "Votre message a été enregistré mais la notification au restaurant a échoué. "
-                        + "Merci de nous contacter par téléphone si besoin urgent.",
-                Map.of("_form", ex.getMessage())
+                detail,
+                Map.of("_form", detail)
         );
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(body);
     }

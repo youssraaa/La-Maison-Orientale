@@ -30,7 +30,19 @@ function ReservationRecap({ form, step, status }) {
     ? `${form.nbPersonnes} personne${Number(form.nbPersonnes) > 1 ? "s" : ""}`
     : "";
   const isSuccess = status === "success";
-  const progress = isSuccess ? 100 : Math.min(95, ((step - 1) / 2) * 100 + (form.heure ? 15 : 0));
+  const isCancelled = status === "cancelled";
+  const progress = isSuccess || isCancelled
+    ? 100
+    : step === 1
+      ? Math.min(42, (form.date ? 12 : 0) + (form.heure ? 28 : 8))
+      : Math.min(
+          92,
+          58 +
+            (form.prenom ? 8 : 0) +
+            (form.nomFamille ? 8 : 0) +
+            (form.telephone ? 8 : 0) +
+            (form.email ? 10 : 0)
+        );
 
   return (
     <aside className="res-ticket" aria-live="polite" aria-label="Récapitulatif de réservation">
@@ -41,7 +53,7 @@ function ReservationRecap({ form, step, status }) {
       <header className="res-ticket__head">
         <p className="res-ticket__eyebrow">Votre table</p>
         <h2 className="res-ticket__title">
-          {isSuccess ? "Réservée" : "En préparation"}
+          {isCancelled ? "Annulée" : isSuccess ? "Réservée" : "En préparation"}
         </h2>
         <p className="res-ticket__brand">La Maison Orientale</p>
       </header>
@@ -77,11 +89,12 @@ function ReservationRecap({ form, step, status }) {
       <footer className="res-ticket__foot">
         {isSuccess ? (
           <p className="res-ticket__status is-ok">Confirmation immédiate · table gardée</p>
+        ) : isCancelled ? (
+          <p className="res-ticket__status">Réservation annulée</p>
         ) : (
           <p className="res-ticket__status">
-            {step === 1 && "Étape 1 · Date, couverts & heure"}
-            {step === 2 && "Étape 2 · Vos coordonnées"}
-            {step === 3 && "Étape 3 · Validez pour confirmer"}
+            {step === 1 && "Étape 1 · Date, couverts & créneau"}
+            {step === 2 && "Étape 2 · Vérifiez le ticket puis confirmez"}
           </p>
         )}
       </footer>

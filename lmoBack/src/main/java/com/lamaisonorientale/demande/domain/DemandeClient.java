@@ -46,6 +46,15 @@ public class DemandeClient {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(name = "reponse_interne", columnDefinition = "TEXT")
+    private String reponseInterne;
+
+    @Column(name = "reponse_client", columnDefinition = "TEXT")
+    private String reponseClient;
+
+    @Column(name = "reponse_at")
+    private Instant reponseAt;
+
     @PrePersist
     void onCreate() {
         if (createdAt == null) {
@@ -118,5 +127,29 @@ public class DemandeClient {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public String getReponseInterne() {
+        return reponseInterne;
+    }
+
+    public void setReponseInterne(String reponseInterne) {
+        this.reponseInterne = reponseInterne;
+    }
+
+    public String getReponseClient() {
+        return reponseClient;
+    }
+
+    public void setReponseClient(String reponseClient) {
+        this.reponseClient = reponseClient;
+    }
+
+    public Instant getReponseAt() {
+        return reponseAt;
+    }
+
+    public void setReponseAt(Instant reponseAt) {
+        this.reponseAt = reponseAt;
     }
 }

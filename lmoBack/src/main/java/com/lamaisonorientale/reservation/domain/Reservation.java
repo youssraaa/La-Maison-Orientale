@@ -50,13 +50,19 @@ public class Reservation {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(name = "gestion_token", length = 64)
+    private String gestionToken;
+
+    @Column(name = "utilisateur_id")
+    private Long utilisateurId;
+
     @PrePersist
     void onCreate() {
         if (createdAt == null) {
             createdAt = Instant.now();
         }
         if (statut == null) {
-            statut = StatutReservation.EN_ATTENTE;
+            statut = StatutReservation.CONFIRMEE;
         }
     }
 
@@ -130,5 +136,21 @@ public class Reservation {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public String getGestionToken() {
+        return gestionToken;
+    }
+
+    public void setGestionToken(String gestionToken) {
+        this.gestionToken = gestionToken;
+    }
+
+    public Long getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
     }
 }

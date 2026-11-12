@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { submitContactForm } from "../api/contactApi";
+import ContactIcon from "./ContactIcons";
 import {
   hasValidationErrors,
   validateContactForm,
 } from "../utils/validateContactForm";
+import { EMAIL_FORMAT_EXAMPLE } from "../../../common/utils/contactFieldValidation";
+import { mergeApiError } from "../../../common/utils/formErrors";
 
 const initialForm = {
   nom: "",
@@ -12,13 +15,30 @@ const initialForm = {
   message: "",
 };
 
+const FIELD_META = {
+  nom: { label: "Nom", icon: "user", autoComplete: "name" },
+  email: { label: "E-mail", icon: "mail", autoComplete: "email", type: "email" },
+  sujet: { label: "Sujet", icon: "tag", autoComplete: "off" },
+  message: { label: "Message", icon: "message", autoComplete: "off" },
+};
+
 function ContactForm() {
   const [form, setForm] = useState(initialForm);
   const [fieldErrors, setFieldErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [successMessage, setSuccessMessage] = useState("");
+  const formRef = useRef(null);
 
   const messageLength = form.message.length;
+  const fieldErrorCount = Object.keys(fieldErrors).filter((k) => k !== "_form").length;
+
+  function scrollToFirstError(errors) {
+    const firstKey = ["nom", "email", "sujet", "message"].find((key) => errors[key]);
+    if (!firstKey) return;
+    formRef.current
+      ?.querySelector(`[name="${firstKey}"]`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -38,6 +58,7 @@ function ContactForm() {
       setFieldErrors(clientErrors);
       setStatus("error");
       setSuccessMessage("");
+      scrollToFirstError(clientErrors);
       return;
     }
 
@@ -60,133 +81,134 @@ function ContactForm() {
       setForm(initialForm);
     } catch (error) {
       setStatus("error");
-      const errors = { ...(error.fieldErrors || {}) };
-      if (
-        error.message &&
-        (!errors._form ||
-          error.code === "NETWORK" ||
-          error.code === "SERVER" ||
-          error.code === "MAIL")
-      ) {
-        errors._form = error.message;
-      }
+      const errors = mergeApiError(error);
       setFieldErrors(errors);
+      scrollToFirstError(errors);
     }
   }
 
-  return (
-    <form className="contact-form" onSubmit={handleSubmit} noValidate>
-      <div className="contact-form__field">
-        <label htmlFor="nom">Nom *</label>
-        <input
-          id="nom"
-          name="nom"
-          type="text"
-          autoComplete="name"
-          maxLength={100}
-          value={form.nom}
-          onChange={handleChange}
-          aria-invalid={Boolean(fieldErrors.nom)}
-          aria-describedby={fieldErrors.nom ? "nom-error" : undefined}
-        />
-        {fieldErrors.nom && (
-          <span id="nom-error" className="contact-form__error" role="alert">
-            {fieldErrors.nom}
-          </span>
-        )}
-      </div>
+  function renderField(name) {
+    const meta = FIELD_META[name];
+    const error = fieldErrors[name];
+    const isTextarea = name === "message";
 
-      <div className="contact-form__field">
-        <label htmlFor="email">E-mail *</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          maxLength={255}
-          value={form.email}
-          onChange={handleChange}
-          aria-invalid={Boolean(fieldErrors.email)}
-          aria-describedby={fieldErrors.email ? "email-error" : undefined}
-        />
-        {fieldErrors.email && (
-          <span id="email-error" className="contact-form__error" role="alert">
-            {fieldErrors.email}
+    return (
+      <div
+        className={`contact-form__field${error ? " contact-form__field--invalid" : ""}`}
+      >
+        <label htmlFor={name}>
+          <ContactIcon name={meta.icon} />
+          <span>
+            {meta.label} <span className="contact-form__required">*</span>
           </span>
-        )}
-      </div>
-
-      <div className="contact-form__field">
-        <label htmlFor="sujet">Sujet *</label>
-        <input
-          id="sujet"
-          name="sujet"
-          type="text"
-          maxLength={120}
-          placeholder="Ex. : anniversaire, événement, question…"
-          value={form.sujet}
-          onChange={handleChange}
-          aria-invalid={Boolean(fieldErrors.sujet)}
-          aria-describedby={fieldErrors.sujet ? "sujet-error" : undefined}
-        />
-        {fieldErrors.sujet && (
-          <span id="sujet-error" className="contact-form__error" role="alert">
-            {fieldErrors.sujet}
-          </span>
-        )}
-      </div>
-
-      <div className="contact-form__field">
-        <label htmlFor="message">Message *</label>
-        <textarea
-          id="message"
-          name="message"
-          rows={6}
-          maxLength={2000}
-          value={form.message}
-          onChange={handleChange}
-          aria-invalid={Boolean(fieldErrors.message)}
-          aria-describedby="message-hint message-error"
-        />
-        <div className="contact-form__meta">
-          <span id="message-hint" className="contact-form__hint">
-            Minimum 10 caractères
-          </span>
-          <span
-            className={`contact-form__counter${messageLength > 2000 ? " contact-form__counter--over" : ""}`}
-            aria-live="polite"
-          >
-            {messageLength} / 2000
-          </span>
+        </label>
+        <div className="contact-form__control">
+          {isTextarea ? (
+            <textarea
+              id={name}
+              name={name}
+              rows={6}
+              maxLength={2000}
+              value={form[name]}
+              onChange={handleChange}
+              placeholder="Décrivez votre demande…"
+              aria-invalid={Boolean(error)}
+              aria-describedby={`${name}-hint ${name}-error`}
+            />
+          ) : (
+            <input
+              id={name}
+              name={name}
+              type={meta.type || "text"}
+              autoComplete={meta.autoComplete}
+              maxLength={name === "nom" ? 100 : name === "email" ? 255 : 120}
+              placeholder={
+                name === "email"
+                  ? EMAIL_FORMAT_EXAMPLE
+                  : name === "sujet"
+                    ? "Ex. : anniversaire, événement, question…"
+                    : undefined
+              }
+              value={form[name]}
+              onChange={handleChange}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? `${name}-error` : undefined}
+            />
+          )}
         </div>
-        {fieldErrors.message && (
-          <span id="message-error" className="contact-form__error" role="alert">
-            {fieldErrors.message}
-          </span>
-        )}
+        {name === "message" ? (
+          <div className="contact-form__meta">
+            <span id="message-hint" className="contact-form__hint">
+              Minimum 10 caractères
+            </span>
+            <span
+              className={`contact-form__counter${messageLength > 2000 ? " contact-form__counter--over" : ""}`}
+              aria-live="polite"
+            >
+              {messageLength} / 2000
+            </span>
+          </div>
+        ) : null}
+        {error ? (
+          <p id={`${name}-error`} className="contact-form__error" role="alert">
+            <ContactIcon name="alert" />
+            <span>{error}</span>
+          </p>
+        ) : null}
       </div>
+    );
+  }
 
-      {fieldErrors._form && (
-        <p
-          className={`contact-form__error contact-form__error--global${status === "error" && fieldErrors._form.includes("enregistré") ? " contact-form__error--warning" : ""}`}
+  return (
+    <form
+      ref={formRef}
+      className="contact-form"
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      {fieldErrorCount > 1 ? (
+        <div className="contact-form__summary" role="alert">
+          <ContactIcon name="alert" />
+          <p>
+            Veuillez corriger les <strong>{fieldErrorCount} champs</strong> signalés
+            ci-dessous.
+          </p>
+        </div>
+      ) : null}
+
+      {fieldErrors._form ? (
+        <div
+          className={`contact-form__banner contact-form__banner--error${
+            fieldErrors._form.includes("enregistré")
+              ? " contact-form__banner--warning"
+              : ""
+          }`}
           role="alert"
         >
-          {fieldErrors._form}
-        </p>
-      )}
+          <ContactIcon name="alert" />
+          <p>{fieldErrors._form}</p>
+        </div>
+      ) : null}
 
-      {successMessage && (
-        <p className="contact-form__success" role="status">
-          {successMessage}
-        </p>
-      )}
+      {successMessage ? (
+        <div className="contact-form__banner contact-form__banner--success" role="status">
+          <ContactIcon name="check" />
+          <p>{successMessage}</p>
+        </div>
+      ) : null}
+
+      {renderField("nom")}
+      {renderField("email")}
+      {renderField("sujet")}
+      {renderField("message")}
 
       <button
         type="submit"
-        className="btn btn--accent contact-form__submit"
+        className="contact-form__submit"
         disabled={status === "loading"}
       >
-        {status === "loading" ? "Envoi en cours…" : "Envoyer le message"}
+        <ContactIcon name="send" />
+        <span>{status === "loading" ? "Envoi en cours…" : "Envoyer le message"}</span>
       </button>
     </form>
   );

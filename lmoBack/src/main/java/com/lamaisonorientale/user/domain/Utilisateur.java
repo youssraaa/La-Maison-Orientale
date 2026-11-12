@@ -44,6 +44,9 @@ public class Utilisateur implements UserDetails {
     @Column(length = 100)
     private String nom;
 
+    @Column(length = 100)
+    private String prenom;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private RoleUtilisateur role;
@@ -53,6 +56,30 @@ public class Utilisateur implements UserDetails {
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    @Column(name = "telephone", length = 30)
+    private String telephone;
+
+    @Column(length = 100)
+    private String pays;
+
+    @Column(length = 255)
+    private String adresse;
+
+    @Column(length = 100)
+    private String ville;
+
+    @Column(name = "code_postal", length = 20)
+    private String codePostal;
+
+    @Column(name = "adresse_livraison", length = 255)
+    private String adresseLivraison;
+
+    @Column(name = "code_postal_livraison", length = 20)
+    private String codePostalLivraison;
+
+    @Column(name = "ville_livraison", length = 100)
+    private String villeLivraison;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

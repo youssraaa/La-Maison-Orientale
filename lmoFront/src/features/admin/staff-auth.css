@@ -1,0 +1,260 @@
+/* Activation / réinitialisation compte équipe */
+
+.staff-auth-page .client-auth {
+  max-width: 56rem;
+  padding: 0 1.5rem;
+}
+
+.staff-auth-page .client-auth__shell--staff {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: stretch;
+  max-width: none;
+  min-height: 0;
+}
+
+.staff-auth__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.staff-auth__page-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.75rem;
+}
+
+.staff-auth__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.staff-auth__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(122, 21, 32, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(58, 34, 20, 0.55);
+}
+
+.staff-auth__step.is-done {
+  border-color: rgba(61, 122, 74, 0.28);
+  background: rgba(61, 122, 74, 0.08);
+  color: #1f6b4a;
+}
+
+.staff-auth__step.is-active {
+  border-color: rgba(122, 21, 32, 0.28);
+  background: rgba(122, 21, 32, 0.06);
+  color: #7a1520;
+}
+
+.staff-auth__step-num {
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: currentColor;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.staff-auth__step.is-done .staff-auth__step-num {
+  background: #1f6b4a;
+}
+
+.staff-auth__step.is-active .staff-auth__step-num {
+  background: #7a1520;
+}
+
+.staff-auth__step.is-pending .staff-auth__step-num {
+  background: rgba(58, 34, 20, 0.28);
+}
+
+.staff-auth__account-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(122, 21, 32, 0.12);
+  background: linear-gradient(135deg, rgba(255, 250, 243, 0.95), rgba(255, 255, 255, 0.98));
+}
+
+.staff-auth__account-avatar {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #7a1520, #b4232e);
+  color: #fff;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 2.75rem;
+  text-align: center;
+  padding: 0;
+}
+
+.staff-auth__account-card strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #2a1810;
+}
+
+.staff-auth__account-card span {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #8a7364;
+  word-break: break-word;
+}
+
+.staff-auth__hint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8a7364;
+}
+
+.staff-auth__status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.75rem 1.25rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(122, 21, 32, 0.08);
+  background: linear-gradient(165deg, rgba(255, 252, 247, 0.95), rgba(255, 255, 255, 0.98));
+  box-shadow: 0 8px 24px rgba(40, 18, 14, 0.06);
+}
+
+.staff-auth__status-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.staff-auth__status-icon--ok {
+  background: rgba(61, 122, 74, 0.12);
+  border: 1px solid rgba(61, 122, 74, 0.28);
+  color: #1f6b4a;
+}
+
+.staff-auth__status-icon--warn {
+  background: rgba(226, 176, 74, 0.15);
+  border: 1px solid rgba(201, 134, 74, 0.35);
+  color: #9a6b1a;
+}
+
+.staff-auth__status-icon--error {
+  background: rgba(180, 35, 46, 0.1);
+  border: 1px solid rgba(180, 35, 46, 0.25);
+  color: #7a1520;
+}
+
+.staff-auth__status h2 {
+  margin: 0;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.15rem;
+  color: #7a1520;
+}
+
+.staff-auth__status p {
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #6b635c;
+  line-height: 1.5;
+}
+
+.staff-auth__status--ok {
+  border-color: rgba(61, 122, 74, 0.15);
+}
+
+.staff-auth__status--warn {
+  border-color: rgba(226, 176, 74, 0.2);
+}
+
+.staff-auth__status--error {
+  border-color: rgba(180, 35, 46, 0.12);
+}
+
+.staff-auth__status .client-auth__submit,
+.staff-auth__status .client-auth__secondary {
+  margin-top: 0.5rem;
+}
+
+.staff-auth__loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 2rem 0 1.5rem;
+  text-align: center;
+}
+
+.staff-auth__loader-ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 3px solid rgba(122, 21, 32, 0.12);
+  border-top-color: #7a1520;
+  animation: staff-auth-spin 0.85s linear infinite;
+}
+
+.staff-auth__loader p {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #6b635c;
+}
+
+@keyframes staff-auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.client-auth__brand--activate,
+.client-auth__brand--reset {
+  background:
+    radial-gradient(ellipse at 85% 12%, rgba(226, 176, 74, 0.22), transparent 48%),
+    radial-gradient(ellipse at 8% 88%, rgba(122, 21, 32, 0.18), transparent 50%),
+    linear-gradient(155deg, #2b0a0a 0%, #52141c 45%, #3a2214 100%);
+}
+
+@media (max-width: 960px) {
+  .staff-auth-page .client-auth {
+    max-width: 28rem;
+    padding: 0 1rem;
+  }
+
+  .staff-auth-page .client-auth__shell--staff {
+    grid-template-columns: 1fr;
+  }
+}

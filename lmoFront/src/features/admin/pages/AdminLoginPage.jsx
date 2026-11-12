@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import authApi from "../../../common/api/authApi";
 import { useAuth } from "../../../common/auth/AuthContext";
+import {
+  EMAIL_FORMAT_EXAMPLE,
+} from "../../../common/utils/contactFieldValidation";
+import {
+  getFormBannerMessage,
+  mergeApiError,
+} from "../../../common/utils/formErrors";
+import { validateLoginForm } from "../../../common/utils/formValidation";
 
 const MODULES = [
   {
@@ -78,26 +86,34 @@ const MODULES = [
   },
 ];
 
+function staffHome() {
+  return "/admin/dashboard";
+}
+
 function AdminLoginPage() {
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, role } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/admin/dashboard", { replace: true });
+      navigate(staffHome(), { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, role, navigate]);
 
   async function handleSubmit(event) {
     event.preventDefault();
     setMessage("");
+    setFieldErrors({});
 
-    if (!email.trim() || !password) {
-      setMessage("Indiquez votre e-mail et votre mot de passe.");
+    const clientErrors = validateLoginForm({ email, password });
+    if (Object.keys(clientErrors).length > 0) {
+      setFieldErrors(clientErrors);
+      setMessage(getFormBannerMessage(clientErrors));
       return;
     }
 
@@ -113,16 +129,18 @@ function AdminLoginPage() {
           role: data.role,
         },
       });
-      navigate("/admin/dashboard", { replace: true });
+      navigate(staffHome(), { replace: true });
     } catch (error) {
-      setMessage(error.message || "E-mail ou mot de passe incorrect.");
+      const mapped = mergeApiError(error);
+      setFieldErrors(mapped);
+      setMessage(getFormBannerMessage(mapped, error.message || "E-mail ou mot de passe incorrect."));
     } finally {
       setLoading(false);
     }
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/admin/dashboard" replace />;
+    return <Navigate to={staffHome()} replace />;
   }
 
   return (
@@ -141,7 +159,7 @@ function AdminLoginPage() {
           />
           <div>
             <p className="admin-login__name">La Maison Orientale</p>
-            <p className="admin-login__tagline">Espace admin</p>
+            <p className="admin-login__tagline">Espace Admin</p>
           </div>
         </header>
 
@@ -149,34 +167,45 @@ function AdminLoginPage() {
           Bienvenue dans votre <strong>espace admin</strong>
         </h1>
         <p className="admin-login__lead">
-          Gérez les réservations, les messages et le quotidien du restaurant.
+          Connexion unique pour administrateurs et agents. Gérez les
+          réservations, les messages et le quotidien du restaurant.
         </p>
 
         <form className="admin-login__form" onSubmit={handleSubmit} noValidate>
-          <label className="admin-login__field" htmlFor="admin-email">
+          <label className={`admin-login__field${fieldErrors.email ? " admin-login__field--invalid" : ""}`} htmlFor="staff-email">
             <span>E-mail</span>
             <input
-              id="admin-email"
+              id="staff-email"
               name="email"
               type="email"
               autoComplete="username"
-              placeholder="votre-email@domaine.com"
+              placeholder={EMAIL_FORMAT_EXAMPLE}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
+              }}
+              aria-invalid={Boolean(fieldErrors.email)}
             />
+            {fieldErrors.email ? <em className="admin-login__field-error">{fieldErrors.email}</em> : null}
           </label>
 
-          <label className="admin-login__field" htmlFor="admin-password">
+          <label className={`admin-login__field${fieldErrors.password ? " admin-login__field--invalid" : ""}`} htmlFor="staff-password">
             <span>Mot de passe</span>
             <input
-              id="admin-password"
+              id="staff-password"
               name="password"
               type="password"
               autoComplete="current-password"
               placeholder="mot de passe"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
+              }}
+              aria-invalid={Boolean(fieldErrors.password)}
             />
+            {fieldErrors.password ? <em className="admin-login__field-error">{fieldErrors.password}</em> : null}
           </label>
 
           <button type="button" className="admin-login__forgot" disabled>

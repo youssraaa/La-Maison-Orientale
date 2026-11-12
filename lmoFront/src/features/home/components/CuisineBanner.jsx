@@ -1,7 +1,8 @@
-import { restaurantInfo } from "../../../common/data/restaurantInfo";
+import useRestaurantInfo from "../../../common/hooks/useRestaurantInfo";
 
 function CuisineBanner() {
-  const { services } = restaurantInfo;
+  const { info } = useRestaurantInfo();
+  const { services } = info;
 
   return (
     <section className="cuisine-banner">
@@ -14,8 +15,7 @@ function CuisineBanner() {
         </h2>
         <p>
           Notre restaurant syrien vous invite à découvrir les saveurs du
-          Moyen-Orient : shawarma, grillades, houmous et bien plus, préparés
-          chaque jour avec des produits{"\u00a0"}frais.
+          Moyen-Orient&nbsp;!
         </p>
         <ul className="cuisine-banner__services" aria-label="Modes de service">
           {services.map((label) => (

@@ -1,0 +1,14 @@
+package com.lamaisonorientale.notification.domain;
+
+public enum NotificationType {
+    NOUVELLE_RESERVATION,
+    NOUVEAU_MESSAGE,
+    NOUVELLE_COMMANDE,
+    AGENT_INVITE,
+    SYSTEME,
+    RESERVATION_CONFIRMEE,
+    RESERVATION_MODIFIEE,
+    RESERVATION_ANNULEE,
+    COMMANDE_CONFIRMEE,
+    REPONSE_MESSAGE
+}

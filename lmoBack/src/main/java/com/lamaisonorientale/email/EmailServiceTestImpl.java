@@ -1,5 +1,6 @@
 package com.lamaisonorientale.email;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -59,7 +60,107 @@ public class EmailServiceTestImpl implements EmailService {
             String nom,
             LocalDate date,
             LocalTime heure,
+            Integer nbPersonnes,
+            String manageUrl) {
+        log.debug("Mock accusé réservation pour {} : {} {} → {}", clientEmail, date, heure, manageUrl);
+    }
+
+    @Override
+    public void sendReservationModificationToClient(
+            String clientEmail,
+            String nom,
+            LocalDate date,
+            LocalTime heure,
+            Integer nbPersonnes,
+            String manageUrl) {
+        log.debug("Mock modification réservation client → {}", clientEmail);
+    }
+
+    @Override
+    public void sendReservationModificationToRestaurant(
+            Long reservationId,
+            String nom,
+            String email,
+            String telephone,
+            LocalDate previousDate,
+            LocalTime previousHeure,
+            Integer previousNbPersonnes,
+            LocalDate date,
+            LocalTime heure,
+            Integer nbPersonnes,
+            String commentaire) {
+        log.debug("Mock modification réservation restaurant #{} : {}", reservationId, nom);
+    }
+
+    @Override
+    public void sendReservationCancellationToClient(
+            String clientEmail, String nom, LocalDate date, LocalTime heure) {
+        log.debug("Mock annulation réservation client → {}", clientEmail);
+    }
+
+    @Override
+    public void sendReservationCancellationToRestaurant(
+            Long reservationId,
+            String nom,
+            String email,
+            String telephone,
+            LocalDate date,
+            LocalTime heure,
             Integer nbPersonnes) {
-        log.debug("Mock accusé réservation pour {} : {} {}", clientEmail, date, heure);
+        log.debug("Mock annulation réservation restaurant #{} : {}", reservationId, nom);
+    }
+
+    @Override
+    public void sendOrderNotificationToRestaurant(
+            Long commandeId,
+            String reference,
+            String nom,
+            String email,
+            String telephone,
+            String mode,
+            String modePaiement,
+            BigDecimal total,
+            String adresseLivraison,
+            String commentaire,
+            Instant createdAt) {
+        log.debug("Mock commande restaurant {} {}", reference, nom);
+    }
+
+    @Override
+    public void sendOrderConfirmationToClient(
+            String clientEmail,
+            String nom,
+            String reference,
+            String mode,
+            String modePaiement,
+            BigDecimal total,
+            String manageUrl) {
+        log.debug("Mock confirmation commande {} → {}", reference, clientEmail);
+    }
+
+    @Override
+    public void sendOrderCancellationToClient(String clientEmail, String nom, String reference) {
+        log.debug("Mock annulation commande {} → {}", reference, clientEmail);
+    }
+
+    @Override
+    public void sendOrderStatusToClient(String clientEmail, String nom, String reference, String mode, String statut) {
+        log.debug("Mock statut commande {} ({}) → {}", reference, statut, clientEmail);
+    }
+
+    @Override
+    public void sendAgentInviteEmail(String to, String nom, String activationLink) {
+        log.debug("Mock invitation agent → {} : {}", to, activationLink);
+    }
+
+    @Override
+    public void sendAgentPasswordResetEmail(String to, String nom, String resetLink) {
+        log.debug("Mock reset mot de passe agent → {} : {}", to, resetLink);
+    }
+
+    @Override
+    public void sendContactReplyToClient(
+            String clientEmail, String nom, String sujetOriginal, String messageOriginal, String reponse) {
+        log.debug("Mock réponse contact → {} : {}", clientEmail, reponse);
     }
 }

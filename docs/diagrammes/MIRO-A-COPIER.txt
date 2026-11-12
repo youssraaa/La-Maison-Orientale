@@ -1,0 +1,648 @@
+================================================================================
+
+  LA MAISON ORIENTALE — DIAGRAMMES UML POUR MIRO (copier-coller)
+
+================================================================================
+
+
+
+TITRE CADRE SYSTÈME (identique sur les 3 diagrammes) :
+
+Restaurant La Maison Orientale
+
+
+
+RÈGLES FLÈCHES :
+
+  • Acteur → cas d'utilisation        = flèche PLEINE
+
+  • <<include>>                       = flèche POINTILLÉE du PRINCIPAL vers le SOUS-CAS
+
+  • <<extend>>                        = flèche POINTILLÉE du SOUS-CAS vers le PRINCIPAL
+
+  • Héritage Client / Visiteur        = flèche PLEINE + triangle vide, Client → Visiteur
+
+
+
+
+
+================================================================================
+
+  DIAGRAMME 1 — ADMINISTRATEUR
+
+================================================================================
+
+
+
+ACTEUR (bonhomme, à gauche du cadre) :
+
+Administrateur
+
+
+
+--- CAS PRINCIPAUX (ovales jaunes, liés à Administrateur) ---
+
+
+
+UC01 : consulter le tableau de bord
+
+
+
+UC02 : gérer les agents
+
+
+
+UC03 : consulter les notifications
+
+
+
+UC04 : gérer son profil
+
+
+
+--- SOUS-CAS ---
+
+
+
+UC01-01 : générer un rapport d'activité PDF
+
+
+
+UC02-01 : créer un compte agent
+
+
+
+UC02-02 : modifier un compte agent
+
+
+
+UC02-03 : supprimer un compte agent
+
+
+
+UC02-04 : renvoyer une invitation
+
+
+
+UC02-05 : réinitialiser le mot de passe agent
+
+
+
+--- LIENS ACTEUR ---
+
+
+
+Administrateur → UC01
+
+Administrateur → UC02
+
+Administrateur → UC03
+
+Administrateur → UC04
+
+
+
+--- RELATIONS INCLUDE / EXTEND ---
+
+
+
+UC01-01 ----<<extend>>----> UC01
+
+
+
+UC02 ----<<include>>----> UC02-01
+
+UC02 ----<<include>>----> UC02-02
+
+UC02 ----<<include>>----> UC02-03
+
+UC02 ----<<include>>----> UC02-04
+
+UC02 ----<<include>>----> UC02-05
+
+
+
+--- NOTE (sticky Miro, optionnel) ---
+
+
+
+L'administrateur ne gère pas les réservations, commandes ou la carte (rôle Agent).
+
+
+
+
+
+================================================================================
+
+  DIAGRAMME 2 — AGENT
+
+================================================================================
+
+
+
+ACTEUR (bonhomme, à gauche du cadre) :
+
+Agent
+
+
+
+--- CAS PRINCIPAUX (ovales jaunes, liés à Agent) ---
+
+
+
+UC01 : consulter le tableau de bord
+
+
+
+UC02 : gérer les réservations
+
+
+
+UC03 : gérer les horaires et fermetures
+
+
+
+UC04 : gérer les commandes
+
+
+
+UC05 : gérer la carte et les tarifs
+
+
+
+UC06 : gérer la galerie photos
+
+
+
+UC07 : gérer les informations et services du restaurant
+
+
+
+UC08 : gérer les paramètres réservation / commande
+
+
+
+UC09 : consulter les clients
+
+
+
+UC10 : gérer les messages
+
+
+
+UC11 : consulter les notifications
+
+
+
+UC12 : gérer son profil
+
+
+
+--- SOUS-CAS ---
+
+
+
+UC01-01 : générer un rapport d'activité PDF
+
+
+
+UC02-01 : consulter les détails
+
+
+
+UC02-02 : consulter l'historique des réservations
+
+
+
+UC02-03 : consulter les détails d'une réservation
+
+
+
+UC02-04 : suivre la confirmation ou l'annulation du client
+
+
+
+UC02-05 : marquer le client présenté ou absent
+
+
+
+UC04-01 : consulter une commande
+
+
+
+UC04-02 : consulter les commandes du jour
+
+
+
+UC04-03 : consulter l'historique des commandes
+
+
+
+UC04-04 : consulter les plats et la facture
+
+
+
+UC04-05 : prendre en charge et préparer
+
+
+
+UC04-06 : marquer prête
+
+
+
+UC04-07 : marquer remise (à emporter)
+
+
+
+UC04-08 : marquer livrée (livraison)
+
+
+
+UC04-09 : notifier le client par notification ou e-mail
+
+
+
+UC10-01 : consulter un message
+
+
+
+UC10-02 : répondre à un message
+
+
+
+--- LIENS ACTEUR ---
+
+
+
+Agent → UC01
+
+Agent → UC02
+
+Agent → UC03
+
+Agent → UC04
+
+Agent → UC05
+
+Agent → UC06
+
+Agent → UC07
+
+Agent → UC08
+
+Agent → UC09
+
+Agent → UC10
+
+Agent → UC11
+
+Agent → UC12
+
+
+
+--- RELATIONS INCLUDE / EXTEND ---
+
+
+
+UC01-01 ----<<extend>>----> UC01
+
+
+
+UC02 ----<<include>>----> UC02-01
+
+UC02 ----<<include>>----> UC02-02
+
+UC02 ----<<include>>----> UC02-03
+
+
+
+UC04 ----<<include>>----> UC04-01
+
+UC04 ----<<include>>----> UC04-02
+
+
+
+UC10 ----<<include>>----> UC10-01
+
+UC10 ----<<include>>----> UC10-02
+
+
+
+
+
+================================================================================
+
+  DIAGRAMME 3 — VISITEUR & CLIENT  (version corrigée)
+
+================================================================================
+
+
+
+ACTEURS (à gauche du cadre) :
+
+
+
+Visiteur
+
+
+
+Client
+
+
+
+(Héritage : flèche triangle vide de Client vers Visiteur)
+
+
+
+--- CAS VISITEUR (ovales verts) ---
+
+
+
+UC01 : consulter le site
+
+
+
+UC02 : consulter la carte et les tarifs
+
+
+
+UC03 : consulter la galerie
+
+
+
+UC04 : contacter le restaurant
+
+
+
+UC05 : réserver une table
+
+
+
+UC06 : gérer une réservation (via lien sécurisé)
+
+
+
+UC08 : passer une commande
+
+
+
+UC09 : s'inscrire
+
+
+
+--- CAS CLIENT (ovales verts, en plus) ---
+
+
+
+UC10 : se connecter
+
+
+
+UC11 : consulter et gérer ses réservations
+
+
+
+UC12 : consulter ses commandes
+
+
+
+UC13 : consulter et gérer son profil
+
+
+
+UC14 : gérer ses messages
+
+
+
+UC15 : consulter ses notifications
+
+
+
+--- SOUS-CAS RÉSERVATION ---
+
+
+
+UC05-01 : consulter les disponibilités
+
+
+
+UC05-02 : confirmer une réservation
+
+
+
+UC06-01 : modifier une réservation
+
+
+
+UC06-02 : annuler une réservation
+
+
+
+UC07 : recevoir une notification par e-mail (réservation)
+
+
+
+--- SOUS-CAS COMMANDE ---
+
+
+
+UC08-01 : composer son panier
+
+
+
+UC08-02 : choisir le mode de commande
+
+
+
+UC08-03 : choisir le mode de paiement
+
+
+
+UC08-04 : confirmer une commande
+
+
+
+UC08-05 : recevoir la confirmation par e-mail (commande)
+
+
+
+UC08-06 : générer la facture
+
+
+
+--- SOUS-CAS ESPACE CLIENT ---
+
+
+
+UC13-01 : enregistrer adresse et téléphone (commande livraison)
+
+
+
+UC14-01 : envoyer un message au restaurant
+
+
+
+UC14-02 : consulter l'historique de ses messages
+
+
+
+UC15-01 : consulter les alertes (badge cloche)
+
+
+
+--- LIENS VISITEUR ---
+
+
+
+Visiteur → UC01
+
+Visiteur → UC02
+
+Visiteur → UC03
+
+Visiteur → UC04
+
+Visiteur → UC05
+
+Visiteur → UC06
+
+Visiteur → UC08
+
+Visiteur → UC09
+
+
+
+--- LIENS CLIENT ---
+
+
+
+Client → UC10
+
+Client → UC11
+
+Client → UC12
+
+Client → UC13
+
+Client → UC14
+
+Client → UC15
+
+
+
+--- RELATIONS INCLUDE / EXTEND (réservation) ---
+
+
+
+UC05 ----<<include>>----> UC05-01
+
+UC05 ----<<include>>----> UC05-02
+
+UC05-02 ----<<include>>----> UC07
+
+
+
+UC06-01 ----<<extend>>----> UC06
+
+UC06-02 ----<<extend>>----> UC06
+
+UC06-01 ----<<include>>----> UC07
+
+UC06-02 ----<<include>>----> UC07
+
+
+
+--- RELATIONS INCLUDE / EXTEND (commande) ---
+
+
+
+UC08 ----<<include>>----> UC08-01
+
+UC08 ----<<include>>----> UC08-02
+
+UC08 ----<<include>>----> UC08-03
+
+UC08 ----<<include>>----> UC08-04
+
+UC08-04 ----<<include>>----> UC08-05
+
+UC08-06 ----<<extend>>----> UC08
+
+
+
+--- RELATIONS INCLUDE / EXTEND (espace client) ---
+
+
+
+UC14 ----<<include>>----> UC14-01
+
+UC14 ----<<include>>----> UC14-02
+
+
+
+UC15 ----<<include>>----> UC15-01
+
+
+
+UC13-01 ----<<extend>>----> UC13
+
+UC08-04 ----<<extend>>----> UC13-01   (si client connecté + livraison)
+
+
+
+--- NOTIFICATIONS IN-APP (client connecté, <<extend>> vers UC15-01) ---
+
+
+
+UC05-02 ----<<extend>>----> UC15-01
+
+UC06-01 ----<<extend>>----> UC15-01
+
+UC06-02 ----<<extend>>----> UC15-01
+
+UC08-04 ----<<extend>>----> UC15-01
+
+(réponse restaurant après UC10-02 agent) ----<<extend>>----> UC15-01
+
+
+
+--- NOTES (sticky Miro) ---
+
+
+
+NOTE 1 — Messages vs Notifications :
+
+  • UC14 Messages = ce que le CLIENT envoie (questions, demandes).
+
+  • UC15 Notifications = ce que le RESTAURANT informe (résa, commande, réponse).
+
+
+
+NOTE 2 — Inscription volontaire ; pas de compte automatique après réservation.
+
+
+
+NOTE 3 — UC07 et UC08-05 = e-mail. UC15 = alertes dans l'espace client (cloche).
+
+
+
+
+
+================================================================================
+
+  LÉGENDES POUR TON RAPPORT (copier si besoin)
+
+================================================================================
+
+
+
+Figure X — Diagramme de cas d'utilisation : Administrateur
+
+
+
+Figure Y — Diagramme de cas d'utilisation : Agent
+
+
+
+Figure Z — Diagramme de cas d'utilisation : Visiteur et Client
+

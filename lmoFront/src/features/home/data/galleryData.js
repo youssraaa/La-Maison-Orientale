@@ -7,11 +7,14 @@ export const homePreviewImages = [
   { src: "/images/gallery/photo-2624.png", alt: "Vitrine de viandes et légumes frais" },
 ];
 
-/** Galerie : façade en premier, 1 terrasse + salle + photos uniques (sans menus) */
+/** Galerie : ligne 1 = le lieu, ligne 2 = plats phares, puis le reste (3 photos par ligne) */
 export const galleryImages = [
   { src: "/images/gallery/photo-1972.png", alt: "Façade de La Maison Orientale" },
   { src: "/images/terrace.jpg", alt: "Terrasse de La Maison Orientale" },
   { src: "/images/gallery/salle-1.png", alt: "Salle de La Maison Orientale" },
+  { src: "/images/gallery/photo-1322.png", alt: "Thé à la menthe servi au comptoir" },
+  { src: "/images/gallery/photo-1447.png", alt: "Mezzés et entrées froides" },
+  { src: "/images/gallery/photo-1501.png", alt: "Brochettes viande et aubergine" },
   { src: "/images/gallery/salle-2.png", alt: "Intérieur de La Maison Orientale" },
   ...[
     "0547",
@@ -19,11 +22,8 @@ export const galleryImages = [
     "0914",
     "0964",
     "1191",
-    "1322",
-    "1447",
     "1452",
     "1454",
-    "1501",
     "1509",
     "2073",
     "2074",

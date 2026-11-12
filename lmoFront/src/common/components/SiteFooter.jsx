@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { restaurantInfo } from "../data/restaurantInfo";
+import useRestaurantInfo from "../hooks/useRestaurantInfo";
 import SocialIcon from "./SocialIcon";
 
 function SiteFooter() {
-  const { name, address, phone, email, socials } = restaurantInfo;
+  const { info } = useRestaurantInfo();
+  const { name, address, phone, email, socials } = info;
 
   return (
     <footer className="site-footer">

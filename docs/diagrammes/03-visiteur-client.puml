@@ -1,0 +1,125 @@
+@startuml Diagramme_Visiteur_Client
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #C8E6C9
+  BorderColor #333
+}
+
+title Restaurant La Maison Orientale — Visiteur & Client
+
+actor "Visiteur" as Visiteur
+actor "Client" as Client
+
+Visiteur <|-- Client
+
+rectangle "Restaurant La Maison Orientale" {
+  ' --- Visiteur ---
+  usecase "UC01 : consulter le site" as UC01
+  usecase "UC02 : consulter la carte\net les tarifs" as UC02
+  usecase "UC03 : consulter la galerie" as UC03
+  usecase "UC04 : contacter le restaurant" as UC04
+
+  usecase "UC05 : réserver une table" as UC05
+  usecase "UC05-01 : consulter les\ndisponibilités" as UC05_01
+  usecase "UC05-02 : confirmer une\nréservation" as UC05_02
+
+  usecase "UC06 : gérer une réservation\n(via lien sécurisé)" as UC06
+  usecase "UC06-01 : modifier une\nréservation" as UC06_01
+  usecase "UC06-02 : annuler une\nréservation" as UC06_02
+
+  usecase "UC07 : recevoir une\nnotification par e-mail\n(réservation)" as UC07
+
+  usecase "UC08 : passer une commande" as UC08
+  usecase "UC08-01 : composer son panier" as UC08_01
+  usecase "UC08-02 : choisir le mode\nde commande" as UC08_02
+  usecase "UC08-03 : choisir le mode\nde paiement" as UC08_03
+  usecase "UC08-04 : confirmer une commande" as UC08_04
+  usecase "UC08-05 : recevoir la\nconfirmation par e-mail\n(commande)" as UC08_05
+  usecase "UC08-06 : générer la facture" as UC08_06
+
+  usecase "UC09 : s'inscrire" as UC09
+
+  ' --- Client (espace connecté) ---
+  usecase "UC10 : se connecter" as UC10
+  usecase "UC11 : consulter et gérer\nses réservations" as UC11
+  usecase "UC12 : consulter ses commandes" as UC12
+  usecase "UC13 : consulter et gérer\nson profil" as UC13
+  usecase "UC13-01 : enregistrer adresse\net téléphone (livraison)" as UC13_01
+
+  usecase "UC14 : gérer ses messages" as UC14
+  usecase "UC14-01 : envoyer un message\nau restaurant" as UC14_01
+  usecase "UC14-02 : consulter l'historique\nde ses messages" as UC14_02
+
+  usecase "UC15 : consulter ses\nnotifications" as UC15
+  usecase "UC15-01 : consulter les alertes\n(espace client)" as UC15_01
+}
+
+' --- Liens acteurs ---
+Visiteur --> UC01
+Visiteur --> UC02
+Visiteur --> UC03
+Visiteur --> UC04
+Visiteur --> UC05
+Visiteur --> UC06
+Visiteur --> UC08
+Visiteur --> UC09
+
+Client --> UC10
+Client --> UC11
+Client --> UC12
+Client --> UC13
+Client --> UC14
+Client --> UC15
+
+' --- Réservation ---
+UC05 ..> UC05_01 : <<include>>
+UC05 ..> UC05_02 : <<include>>
+UC05_02 ..> UC07 : <<include>>
+
+UC06_01 ..> UC06 : <<extend>>
+UC06_02 ..> UC06 : <<extend>>
+UC06_01 ..> UC07 : <<include>>
+UC06_02 ..> UC07 : <<include>>
+
+' --- Commande ---
+UC08 ..> UC08_01 : <<include>>
+UC08 ..> UC08_02 : <<include>>
+UC08 ..> UC08_03 : <<include>>
+UC08 ..> UC08_04 : <<include>>
+UC08_04 ..> UC08_05 : <<include>>
+UC08_06 ..> UC08 : <<extend>>
+
+' --- Espace client ---
+UC14 ..> UC14_01 : <<include>>
+UC14 ..> UC14_02 : <<include>>
+UC15 ..> UC15_01 : <<include>>
+
+UC13_01 ..> UC13 : <<extend>>
+UC08_04 ..> UC13_01 : <<extend>>\n(si client connecté\n+ livraison)
+
+' --- Notifications in-app (client connecté) ---
+UC05_02 ..> UC15_01 : <<extend>>
+UC06_01 ..> UC15_01 : <<extend>>
+UC06_02 ..> UC15_01 : <<extend>>
+UC08_04 ..> UC15_01 : <<extend>>
+UC14_02 ..> UC15_01 : <<extend>>\n(réponse restaurant)
+
+note bottom of UC14
+  **Messages** = demandes envoyées
+  par le client au restaurant.
+end note
+
+note bottom of UC15
+  **Notifications** = alertes reçues
+  (réservation, commande, réponse…).
+  Badge cloche dans l'espace client.
+end note
+
+note bottom of UC09
+  Inscription volontaire ;
+  pas de compte automatique
+  après une réservation.
+end note
+
+@enduml

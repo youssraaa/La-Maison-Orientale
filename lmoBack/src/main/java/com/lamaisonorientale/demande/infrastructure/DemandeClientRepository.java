@@ -18,6 +18,12 @@ public interface DemandeClientRepository extends JpaRepository<DemandeClient, Lo
 
     List<DemandeClient> findTop5ByOrderByCreatedAtDesc();
 
+    List<DemandeClient> findAllByOrderByCreatedAtDesc();
+
+    List<DemandeClient> findByEmailIgnoreCaseOrderByCreatedAtDesc(String email);
+
+    List<DemandeClient> findByTelephoneOrderByCreatedAtDesc(String telephone);
+
     @Query(
             value =
                     """

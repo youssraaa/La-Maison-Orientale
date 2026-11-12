@@ -1,10 +1,37 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PublicNavbar from "../../../common/components/PublicNavbar";
 import SiteFooter from "../../../common/components/SiteFooter";
+import { fetchPublicMenu } from "../../admin/api/publicContentApi";
 import MenuCategorySection from "../components/MenuCategorySection";
-import { menuCategories } from "../data/menuData";
+import { menuCategories as fallbackCategories } from "../data/menuData";
+import { countMenuItems, mapApiCategory } from "../utils/menuUtils";
 
 function MenuPage() {
+  const [categories, setCategories] = useState(fallbackCategories);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchPublicMenu()
+      .then((cats) => {
+        if (cancelled || !cats.length) return;
+        const mapped = cats.map(mapApiCategory);
+        if (countMenuItems(mapped) > 0) {
+          setCategories(mapped);
+        }
+      })
+      .catch(() => {
+        /* conserve le fallback local */
+      })
+      .finally(() => {
+        if (!cancelled) setLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <main className="page menu-page">
       <PublicNavbar />
@@ -19,7 +46,7 @@ function MenuPage() {
 
       <nav className="menu-nav" aria-label="Sections de la carte">
         <div className="menu-nav__inner">
-          {menuCategories.map((cat) => (
+          {categories.map((cat) => (
             <a key={cat.id} href={`#${cat.id}`}>
               {cat.title}
             </a>
@@ -31,16 +58,21 @@ function MenuPage() {
         <div className="menu-sheet__ornament" aria-hidden="true" />
         <p className="menu-sheet__brand">La Maison Orientale</p>
         <div className="menu-body">
-          {menuCategories.map((category) => (
+          {!loaded ? (
+            <p className="menu-ops-loading" aria-live="polite">
+              Chargement de la carte…
+            </p>
+          ) : null}
+          {categories.map((category) => (
             <MenuCategorySection key={category.id} {...category} />
           ))}
         </div>
 
         <section className="menu-cta">
           <div className="menu-cta__inner">
-            <p>Envie de déguster ? Réservez votre table en ligne.</p>
-            <Link to="/reservation" className="btn btn--accent">
-              Réserver une table
+            <p>Prêt à commander ? Parcourez nos plats puis finalisez votre commande en ligne.</p>
+            <Link to="/commander" className="btn btn--accent">
+              Commander
             </Link>
           </div>
         </section>

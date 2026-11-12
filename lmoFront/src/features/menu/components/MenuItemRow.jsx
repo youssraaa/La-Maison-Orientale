@@ -1,6 +1,6 @@
 import { formatPrice } from "../data/menuData";
 
-function MenuItemRow({ name, description, price, featured }) {
+function MenuItemRow({ id, name, description, price, featured, onAdd }) {
   return (
     <article className={`menu-item${featured ? " menu-item--featured" : ""}`}>
       <div className="menu-item__row">
@@ -8,6 +8,11 @@ function MenuItemRow({ name, description, price, featured }) {
         <span className="menu-item__leader" aria-hidden="true" />
         {price != null && (
           <span className="menu-item__price">{formatPrice(price)}</span>
+        )}
+        {id && onAdd && (
+          <button type="button" className="menu-item__add" onClick={() => onAdd({ id, name, price })}>
+            +
+          </button>
         )}
       </div>
       {description && (

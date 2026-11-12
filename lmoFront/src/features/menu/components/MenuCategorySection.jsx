@@ -1,6 +1,6 @@
 import MenuItemRow from "./MenuItemRow";
 
-function MenuCategorySection({ id, title, note, image, items, subsections }) {
+function MenuCategorySection({ id, title, note, image, items, subsections, onAddItem }) {
   const isSauces = id === "sauces";
 
   return (
@@ -21,15 +21,15 @@ function MenuCategorySection({ id, title, note, image, items, subsections }) {
         <div className="menu-category__rule" aria-hidden="true" />
       </header>
 
-      {subsections ? (
+      {subsections?.length > 0 ? (
         <div className="menu-category__subsections">
           {subsections.map((sub) => (
             <div key={sub.title} className="menu-subsection">
               <h3 className="menu-subsection__title">{sub.title}</h3>
               <ul className="menu-category__list">
-                {sub.items.map((item) => (
+                {(sub.items || []).map((item) => (
                   <li key={item.name}>
-                    <MenuItemRow {...item} />
+                    <MenuItemRow {...item} onAdd={onAddItem} />
                   </li>
                 ))}
               </ul>
@@ -38,7 +38,7 @@ function MenuCategorySection({ id, title, note, image, items, subsections }) {
         </div>
       ) : isSauces ? (
         <ul className="menu-sauces">
-          {items.map((item) => (
+          {(items || []).map((item) => (
             <li key={item.name}>
               <span>{item.name}</span>
               {item.price != null && (
@@ -51,9 +51,9 @@ function MenuCategorySection({ id, title, note, image, items, subsections }) {
         </ul>
       ) : (
         <ul className="menu-category__list">
-          {items.map((item) => (
+          {(items || []).map((item) => (
             <li key={item.name}>
-              <MenuItemRow {...item} />
+              <MenuItemRow {...item} onAdd={onAddItem} />
             </li>
           ))}
         </ul>

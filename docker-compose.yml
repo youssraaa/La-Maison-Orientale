@@ -53,6 +53,7 @@ services:
       LMO_ADMIN_EMAIL: ${LMO_ADMIN_EMAIL:-admin@lamaisonorientale.be}
       LMO_ADMIN_PASSWORD: ${LMO_ADMIN_PASSWORD:-admin123}
       LMO_ADMIN_NOM: ${LMO_ADMIN_NOM:-Administrateur}
+      LMO_FRONTEND_URL: ${LMO_FRONTEND_URL:-http://localhost:3000}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000}
     ports:
       - "8081:8080"
@@ -61,6 +62,8 @@ services:
         condition: service_healthy
     networks:
       - lmo-network
+    volumes:
+      - backend_uploads:/app/uploads
     restart: unless-stopped
 
   frontend:
@@ -94,6 +97,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  backend_uploads:
     driver: local
 
 networks:

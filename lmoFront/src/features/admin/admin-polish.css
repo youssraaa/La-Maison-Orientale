@@ -1,0 +1,857 @@
+/* ═══════════════════════════════════════════════════════════════
+   Espace admin LMO — polish global (typo, couleurs, finitions)
+   Thème : bordeaux · or · olive · crème
+   ═══════════════════════════════════════════════════════════════ */
+
+.admin-shell {
+  --admin-font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --admin-font-body: "Plus Jakarta Sans", "Outfit", system-ui, sans-serif;
+  --admin-burgundy: #b4232e;
+  --admin-burgundy-deep: #7a1520;
+  --admin-burgundy-soft: #d64550;
+  --admin-gold: #e2b04a;
+  --admin-gold-light: #f6d98a;
+  --admin-gold-pale: #faf0d4;
+  --admin-olive: #3d7a4a;
+  --admin-olive-deep: #1f6b4a;
+  --admin-teal: #2a6b5e;
+  --admin-copper: #e07a3d;
+  --admin-rose: #f8ebe8;
+  --admin-cream: #fffaf4;
+  --admin-card: #fffcf7;
+  --admin-ink: #1a100e;
+  --admin-muted: #7a6558;
+  --admin-line: rgba(180, 35, 46, 0.12);
+  font-family: var(--admin-font-body);
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(ellipse 85% 60% at 0% 0%, rgba(226, 176, 74, 0.32), transparent 52%),
+    radial-gradient(ellipse 70% 50% at 100% 8%, rgba(180, 35, 46, 0.14), transparent 48%),
+    radial-gradient(ellipse 55% 45% at 75% 100%, rgba(61, 122, 74, 0.12), transparent 50%),
+    radial-gradient(ellipse 40% 30% at 20% 60%, rgba(224, 122, 61, 0.08), transparent 45%),
+    linear-gradient(180deg, #fff9f2 0%, #fcf0e2 42%, #f3e0cc 100%);
+}
+
+/* ——— Typographie globale ——— */
+.admin-shell h1,
+.admin-shell h2,
+.admin-shell h3,
+.admin-shell .admin-shell__page-title,
+.admin-shell .admin-card__head h2,
+.admin-shell .admin-agents__heading,
+.admin-shell .admin-notif-glop__hero-title,
+.admin-shell .admin-dash__intro-title,
+.admin-shell .admin-stat-card__value,
+.admin-shell .admin-page-kpi__value,
+.admin-shell .admin-login__name,
+.admin-shell .admin-login__title {
+  font-family: var(--admin-font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+.admin-dash,
+.admin-ops,
+.admin-agents,
+.admin-settings,
+.admin-notif-glop {
+  font-size: 0.975rem;
+  font-weight: 500;
+  line-height: 1.62;
+  color: var(--admin-ink);
+}
+
+.admin-shell strong,
+.admin-shell b {
+  font-weight: 800;
+  color: var(--admin-burgundy-deep);
+}
+
+/* ——— Sidebar (bordeaux sombre — style original) ——— */
+.admin-shell__rail {
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(226, 176, 74, 0.18), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(180, 35, 46, 0.12), transparent 50%),
+    linear-gradient(175deg, #52141c 0%, #2b0a0a 52%, #160505 100%) !important;
+  border-right: 1px solid rgba(226, 176, 74, 0.18) !important;
+  box-shadow: 6px 0 36px rgba(26, 5, 5, 0.35) !important;
+  color: #f6ebe3 !important;
+}
+
+.admin-shell__brand {
+  border-bottom-color: rgba(226, 176, 74, 0.14) !important;
+}
+
+.admin-shell__brand-name {
+  font-family: var(--admin-font-display) !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  color: #fff !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.admin-shell__brand-tagline {
+  color: var(--admin-gold-light) !important;
+  letter-spacing: 0.22em !important;
+}
+
+.admin-shell__logo {
+  border: 2px solid rgba(226, 176, 74, 0.65) !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  box-shadow: 0 0 0 3px rgba(226, 176, 74, 0.12), 0 8px 22px rgba(0, 0, 0, 0.35) !important;
+}
+
+.admin-shell__nav-item {
+  color: rgba(246, 235, 227, 0.82) !important;
+}
+
+.admin-shell__nav-item:hover:not(.admin-shell__nav-item--soon) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+
+.admin-shell__nav-item.is-active {
+  background: rgba(255, 255, 255, 0.09) !important;
+  color: #fff !important;
+  box-shadow: inset 4px 0 0 var(--admin-gold-light), 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.admin-shell__nav-item.is-active .admin-shell__nav-icon {
+  background: rgba(226, 176, 74, 0.28) !important;
+  color: var(--admin-gold-light) !important;
+}
+
+.admin-shell__nav-icon {
+  color: var(--admin-gold) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+
+.admin-shell__site-btn {
+  background: linear-gradient(135deg, rgba(61, 122, 74, 0.35), rgba(47, 106, 60, 0.25)) !important;
+  border-color: rgba(120, 200, 150, 0.35) !important;
+  color: #d4f0de !important;
+}
+
+.admin-shell__logout-btn:hover {
+  background: rgba(180, 35, 46, 0.55) !important;
+  color: #ffe8ea !important;
+}
+
+/* ——— Topbar ——— */
+.admin-shell__topbar {
+  background:
+    linear-gradient(180deg, #fffcf7 0%, #faf2e8 100%) !important;
+  border-bottom: 1px solid rgba(180, 35, 46, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(40, 18, 14, 0.04) !important;
+}
+
+.admin-shell__page-title {
+  font-size: clamp(1.45rem, 2vw, 1.75rem) !important;
+  font-weight: 700 !important;
+  color: var(--admin-burgundy-deep) !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.12 !important;
+}
+
+.admin-shell__page-kicker {
+  color: var(--admin-burgundy) !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+}
+
+.admin-shell__top-user {
+  background: linear-gradient(135deg, #fff, #faf5ee) !important;
+  border: 1px solid rgba(226, 176, 74, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(40, 18, 14, 0.06) !important;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.admin-shell__top-user:hover {
+  box-shadow: 0 6px 20px rgba(180, 35, 46, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.admin-shell__top-user-meta strong {
+  color: var(--admin-burgundy-deep) !important;
+  font-weight: 700;
+}
+
+.admin-shell__avatar {
+  background: linear-gradient(145deg, var(--admin-burgundy), var(--admin-burgundy-deep)) !important;
+  color: var(--admin-gold-light) !important;
+  font-family: var(--admin-font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.admin-shell__notif-btn {
+  border-color: rgba(180, 35, 46, 0.18) !important;
+  background: #fff !important;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+}
+
+.admin-shell__notif-btn:hover,
+.admin-shell__notif-btn.is-open {
+  background: var(--admin-rose) !important;
+  border-color: rgba(180, 35, 46, 0.28) !important;
+}
+
+.admin-shell__notif-badge {
+  background: linear-gradient(135deg, var(--admin-burgundy), var(--admin-copper)) !important;
+  font-weight: 800;
+}
+
+/* ——— Zone contenu ——— */
+.admin-shell__content {
+  padding: 0;
+  position: relative;
+}
+
+.admin-shell__content > * {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* ——— Cartes ——— */
+.admin-card {
+  padding: 1.35rem 1.45rem 1.5rem;
+  background: linear-gradient(165deg, #fffcf7 0%, #fff5ea 55%, #fef0e0 100%);
+  border: 1px solid rgba(180, 35, 46, 0.14);
+  border-radius: 1.15rem;
+  box-shadow:
+    0 12px 36px rgba(40, 18, 14, 0.07),
+    0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.admin-card:hover {
+  box-shadow:
+    0 16px 44px rgba(40, 18, 14, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.admin-card::before {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--admin-burgundy-deep) 0%,
+    var(--admin-burgundy) 35%,
+    var(--admin-gold) 70%,
+    var(--admin-olive) 100%
+  );
+  opacity: 1;
+}
+
+.admin-card__head h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  letter-spacing: 0.01em;
+}
+
+.admin-card__head p {
+  font-size: 0.84rem;
+  color: var(--admin-muted);
+}
+
+/* ——— Dashboard intro ——— */
+.admin-dash__intro {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.45rem;
+  border-radius: 1.2rem;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(226, 176, 74, 0.28), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(180, 35, 46, 0.08), transparent 50%),
+    linear-gradient(135deg, rgba(255, 252, 247, 0.98), rgba(252, 228, 200, 0.65));
+  border: 1px solid rgba(180, 35, 46, 0.16);
+  box-shadow: 0 10px 32px rgba(180, 35, 46, 0.07);
+}
+
+.admin-dash__intro-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--admin-burgundy);
+}
+
+.admin-dash__intro-title {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
+}
+
+/* ——— Toolbar dashboard ——— */
+.admin-dash__period button {
+  font-family: var(--admin-font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 0.55rem;
+  transition: all 0.15s ease;
+}
+
+.admin-dash__period button.is-active {
+  background: linear-gradient(135deg, var(--admin-burgundy), var(--admin-burgundy-deep)) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(180, 35, 46, 0.3);
+}
+
+.admin-dash__refresh,
+.admin-ops__btn {
+  font-family: var(--admin-font-body);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 0.6rem !important;
+  transition: transform 0.12s ease, box-shadow 0.15s ease !important;
+}
+
+.admin-dash__refresh:hover:not(:disabled),
+.admin-ops__btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(180, 35, 46, 0.32) !important;
+}
+
+.admin-dash__export-pdf {
+  background: linear-gradient(135deg, var(--admin-burgundy-deep), #4a0f14) !important;
+}
+
+.admin-dash__badge-open {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.admin-dash__badge-open:not(.is-closed) {
+  color: var(--admin-olive-deep);
+  background: rgba(61, 122, 74, 0.12);
+  border: 1px solid rgba(61, 122, 74, 0.25);
+}
+
+.admin-dash__badge-open.is-closed {
+  color: var(--admin-burgundy-deep);
+  background: rgba(180, 35, 46, 0.1);
+  border: 1px solid rgba(180, 35, 46, 0.2);
+}
+
+/* ——— KPI stat cards ——— */
+.admin-dash__stat-cards {
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-stat-card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(180, 35, 46, 0.08);
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(40, 18, 14, 0.06);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.admin-stat-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+.admin-stat-card--delay-1::after {
+  background: linear-gradient(180deg, var(--admin-burgundy), var(--admin-burgundy-deep));
+}
+
+.admin-stat-card--delay-2::after {
+  background: linear-gradient(180deg, var(--admin-gold), var(--admin-copper));
+}
+
+.admin-stat-card--delay-3::after {
+  background: linear-gradient(180deg, #4a9080, var(--admin-teal));
+}
+
+.admin-stat-card--delay-4::after {
+  background: linear-gradient(180deg, #4fa05e, var(--admin-olive-deep));
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(40, 18, 14, 0.1);
+}
+
+.admin-stat-card--delay-1 {
+  background: linear-gradient(145deg, #fff 0%, rgba(252, 220, 215, 0.75) 100%);
+  border-color: rgba(180, 35, 46, 0.15);
+}
+
+.admin-stat-card--delay-2 {
+  background: linear-gradient(145deg, #fff 0%, rgba(252, 235, 190, 0.8) 100%);
+  border-color: rgba(226, 176, 74, 0.25);
+}
+
+.admin-stat-card--delay-3 {
+  background: linear-gradient(145deg, #fff 0%, rgba(210, 238, 228, 0.75) 100%);
+  border-color: rgba(42, 107, 94, 0.2);
+}
+
+.admin-stat-card--delay-4 {
+  background: linear-gradient(145deg, #fff 0%, rgba(215, 240, 218, 0.75) 100%);
+  border-color: rgba(61, 122, 74, 0.2);
+}
+
+.admin-stat-card__label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--admin-muted);
+}
+
+.admin-stat-card__value {
+  font-family: var(--admin-font-display);
+  font-size: clamp(1.55rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.admin-stat-card__link {
+  color: var(--admin-burgundy) !important;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.admin-stat-card__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+}
+
+.admin-stat-card__icon--violet {
+  background: linear-gradient(145deg, rgba(180, 35, 46, 0.18), rgba(122, 21, 32, 0.1)) !important;
+  color: var(--admin-burgundy-deep) !important;
+}
+
+.admin-stat-card__icon--orange {
+  background: linear-gradient(145deg, rgba(226, 176, 74, 0.28), rgba(224, 122, 61, 0.14)) !important;
+  color: #9a6018 !important;
+}
+
+.admin-stat-card__icon--teal {
+  background: linear-gradient(145deg, rgba(74, 144, 128, 0.22), rgba(42, 107, 94, 0.12)) !important;
+  color: var(--admin-teal) !important;
+}
+
+.admin-stat-card__icon--indigo {
+  background: linear-gradient(145deg, rgba(79, 160, 94, 0.22), rgba(47, 106, 60, 0.12)) !important;
+  color: var(--admin-olive-deep) !important;
+}
+
+/* ——— Graphiques ——— */
+.admin-chart {
+  border-radius: 1rem;
+  border: 1px solid rgba(180, 35, 46, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 20px rgba(40, 18, 14, 0.04);
+}
+
+.admin-chart--burgundy::before {
+  background: linear-gradient(90deg, #7a1520, #b4232e, #d64550);
+  height: 4px;
+}
+
+.admin-chart--olive::before {
+  background: linear-gradient(90deg, #1f6b4a, #3d7a4a, #4fa05e);
+  height: 4px;
+}
+
+.admin-chart--teal::before {
+  background: linear-gradient(90deg, #2a6b5e, #4a9080, #6ab5a5);
+  height: 4px;
+}
+
+.admin-chart__head h3 {
+  font-family: var(--admin-font-display);
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--admin-burgundy-deep);
+  letter-spacing: 0.015em;
+}
+
+.admin-card--charts-secondary::before {
+  background: linear-gradient(90deg, var(--admin-teal), var(--admin-gold), var(--admin-burgundy));
+}
+
+/* ——— Pills statut ——— */
+.admin-dash__pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.admin-dash__pill--confirmee {
+  background: rgba(61, 122, 74, 0.16) !important;
+  color: var(--admin-olive-deep) !important;
+  border: 1px solid rgba(61, 122, 74, 0.22);
+}
+
+.admin-dash__pill--en_attente,
+.admin-dash__pill--nouvelle {
+  background: rgba(226, 176, 74, 0.22) !important;
+  color: #7a5510 !important;
+  border: 1px solid rgba(226, 176, 74, 0.35);
+}
+
+.admin-dash__pill--refusee,
+.admin-dash__pill--annulee {
+  background: rgba(180, 35, 46, 0.14) !important;
+  color: var(--admin-burgundy-deep) !important;
+  border: 1px solid rgba(180, 35, 46, 0.22);
+}
+
+/* ——— Page KPIs (agents, etc.) ——— */
+.admin-page-kpi {
+  border-radius: 1.1rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.admin-page-kpi--burgundy {
+  background: linear-gradient(145deg, #fff, rgba(252, 218, 212, 0.85));
+  border-color: rgba(180, 35, 46, 0.18);
+}
+
+.admin-page-kpi--gold {
+  background: linear-gradient(145deg, #fff, rgba(252, 235, 185, 0.85));
+  border-color: rgba(226, 176, 74, 0.3);
+}
+
+.admin-page-kpi--olive {
+  background: linear-gradient(145deg, #fff, rgba(215, 240, 218, 0.85));
+  border-color: rgba(61, 122, 74, 0.22);
+}
+
+.admin-page-kpi--teal {
+  background: linear-gradient(145deg, #fff, rgba(205, 235, 228, 0.85));
+  border-color: rgba(42, 107, 94, 0.22);
+}
+
+.admin-page-kpi--muted {
+  background: linear-gradient(145deg, #fff, rgba(240, 228, 218, 0.85));
+  border-color: rgba(122, 101, 88, 0.18);
+}
+
+.admin-page-kpi:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(40, 18, 14, 0.1);
+}
+
+.admin-page-kpi__value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  letter-spacing: 0;
+}
+
+.admin-page-kpi__label {
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+/* ——— Tableaux ——— */
+.admin-agents__table th,
+.admin-ops__table th,
+.admin-table th {
+  font-family: var(--admin-font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--admin-burgundy-deep) !important;
+  background: linear-gradient(180deg, rgba(248, 235, 232, 0.9), rgba(250, 240, 212, 0.5));
+  border-bottom: 2px solid rgba(180, 35, 46, 0.15);
+}
+
+.admin-agents__table tbody tr:nth-child(even),
+.admin-ops__table tbody tr:nth-child(even) {
+  background: rgba(252, 244, 236, 0.45);
+}
+
+.admin-agents__table tbody tr:hover,
+.admin-ops__table tbody tr:hover {
+  background: rgba(248, 235, 232, 0.65);
+}
+
+.admin-agents__table td,
+.admin-ops__table td {
+  font-size: 0.9rem;
+}
+
+/* ——— Filtres & chips ——— */
+.admin-ops__filters button,
+.admin-ops__chip {
+  font-family: var(--admin-font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+
+.admin-ops__filters button.is-active,
+.admin-ops__chip.is-active {
+  background: linear-gradient(135deg, var(--admin-burgundy), var(--admin-burgundy-soft)) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(180, 35, 46, 0.28);
+}
+
+.admin-ops__filters button:not(.is-active):hover {
+  background: rgba(180, 35, 46, 0.08);
+  color: var(--admin-burgundy-deep);
+}
+
+/* ——— Formulaires ——— */
+.admin-agents__field span,
+.admin-form label,
+.admin-search__label,
+.admin-settings label span {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+}
+
+.admin-agents__field input,
+.admin-agents__field select,
+.admin-agents__field textarea,
+.admin-form input,
+.admin-form select,
+.admin-form textarea,
+.admin-settings input,
+.admin-settings select {
+  font-family: var(--admin-font-body);
+  font-size: 0.925rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(180, 35, 46, 0.15);
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-agents__field input:focus,
+.admin-form input:focus,
+.admin-settings input:focus {
+  border-color: var(--admin-burgundy) !important;
+  box-shadow: 0 0 0 3px rgba(180, 35, 46, 0.12) !important;
+  outline: none;
+}
+
+/* ——— Agents page ——— */
+.admin-agents__heading {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  letter-spacing: 0.01em;
+}
+
+.admin-agents__panel {
+  padding: 1.4rem 1.5rem 1.55rem;
+}
+
+/* Notifications hero — styles dans admin-components.css */
+
+.admin-notif-glop__card {
+  border-radius: 1rem;
+  border: 1px solid rgba(180, 35, 46, 0.1);
+  background: linear-gradient(165deg, #fff, #fffcf7);
+  box-shadow: 0 8px 24px rgba(40, 18, 14, 0.05);
+  transition: box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.admin-notif-glop__card.is-unread {
+  border-color: rgba(180, 35, 46, 0.28) !important;
+  background: linear-gradient(165deg, #fff, rgba(248, 235, 232, 0.5)) !important;
+  box-shadow:
+    0 10px 28px rgba(180, 35, 46, 0.08),
+    inset 3px 0 0 var(--notif-accent, var(--admin-burgundy));
+}
+
+.admin-notif-glop__card:hover {
+  box-shadow: 0 12px 32px rgba(40, 18, 14, 0.09);
+  transform: translateY(-1px);
+}
+
+.admin-notif-glop__new-chip {
+  background: linear-gradient(135deg, var(--admin-burgundy), var(--admin-copper)) !important;
+  font-weight: 800;
+}
+
+.admin-notif-glop__tip--green {
+  background: linear-gradient(145deg, rgba(235, 246, 237, 0.9), rgba(255, 252, 247, 0.95)) !important;
+  border-color: rgba(61, 122, 74, 0.2) !important;
+}
+
+.admin-notif-glop__tip--green h3 {
+  color: var(--admin-olive-deep);
+}
+
+.admin-notif-glop__tip--teal {
+  background: linear-gradient(145deg, rgba(232, 244, 240, 0.9), rgba(255, 252, 247, 0.95)) !important;
+  border-color: rgba(42, 107, 94, 0.2) !important;
+}
+
+.admin-notif-glop__tip--teal h3 {
+  color: var(--admin-teal);
+}
+
+.admin-notif-glop__quick-link {
+  color: var(--admin-burgundy) !important;
+  font-weight: 700;
+}
+
+.admin-notif-glop__quick-link:hover {
+  color: var(--admin-burgundy-deep) !important;
+}
+
+/* ——— Settings ——— */
+.admin-settings .admin-card {
+  border-left: 4px solid transparent;
+}
+
+.admin-settings__profile {
+  border-left-color: var(--admin-burgundy) !important;
+}
+
+.admin-settings__password {
+  border-left-color: var(--admin-gold) !important;
+}
+
+.admin-settings__prefs {
+  border-left-color: var(--admin-olive) !important;
+}
+
+.admin-settings .admin-card h2 {
+  font-family: var(--admin-font-display);
+  color: var(--admin-burgundy-deep);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ——— Login ——— */
+.admin-login {
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(180, 35, 46, 0.32), transparent 48%),
+    radial-gradient(ellipse at 90% 85%, rgba(226, 176, 74, 0.2), transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(61, 122, 74, 0.08), transparent 60%),
+    linear-gradient(155deg, #1a0505 0%, #3a0c10 40%, #52141c 100%) !important;
+}
+
+.admin-login__panel {
+  border: 1px solid rgba(226, 176, 74, 0.28) !important;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
+  border-radius: 1.35rem !important;
+}
+
+.admin-login__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+}
+
+.admin-login__tagline {
+  color: var(--admin-burgundy);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.admin-login__title {
+  font-size: clamp(1.35rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  color: var(--admin-burgundy-deep);
+  letter-spacing: 0.01em;
+}
+
+.admin-login__title strong {
+  color: var(--admin-burgundy);
+}
+
+.admin-login__submit {
+  font-family: var(--admin-font-body);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: 0.7rem !important;
+  background: linear-gradient(135deg, var(--admin-burgundy), var(--admin-burgundy-deep)) !important;
+  box-shadow: 0 8px 24px rgba(180, 35, 46, 0.35) !important;
+  transition: transform 0.12s ease, box-shadow 0.15s ease !important;
+}
+
+.admin-login__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(180, 35, 46, 0.4) !important;
+}
+
+.admin-login__module-icon {
+  color: var(--admin-gold);
+}
+
+/* ——— Modales agents ——— */
+.admin-agents__modal-head h2,
+.admin-agents__modal-head h3 {
+  font-family: var(--admin-font-display);
+  font-size: 1.3rem;
+  color: var(--admin-burgundy-deep);
+}
+
+/* ——— Listes vides ——— */
+.admin-dash__empty,
+.admin-empty__text {
+  font-size: 0.9rem;
+  color: var(--admin-muted);
+  font-style: italic;
+}
+
+.admin-dash__card-link {
+  color: var(--admin-burgundy) !important;
+  font-weight: 700;
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 900px) {
+  .admin-shell__content {
+    padding: 0;
+  }
+
+  .admin-charts--essential {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-dash__stat-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-page-kpis {
+    grid-template-columns: 1fr;
+  }
+}

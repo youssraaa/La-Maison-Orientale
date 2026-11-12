@@ -45,13 +45,19 @@ export async function fetchAvailability(date, nbPersonnes = 2) {
   return response.json();
 }
 
-export async function submitReservation(payload) {
+export async function submitReservation(payload, token) {
   let response;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
   try {
     response = await fetch(RESERVATION_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify(payload),
     });
   } catch {

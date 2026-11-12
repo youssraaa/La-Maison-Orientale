@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lamaisonorientale.common.validation.ValidationMessages;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record ReservationRequestDto(
@@ -18,13 +20,14 @@ public record ReservationRequestDto(
         @Size(max = 100, message = "Le nom ne peut pas dépasser 100 caractères")
         String nom,
 
-        @NotBlank(message = "Le téléphone est obligatoire")
-        @Size(max = 30, message = "Le téléphone ne peut pas dépasser 30 caractères")
+        @NotBlank(message = ValidationMessages.PHONE_REQUIRED)
+        @Size(max = 30, message = ValidationMessages.PHONE_TOO_LONG)
+        @Pattern(regexp = ValidationMessages.PHONE_PATTERN, message = ValidationMessages.PHONE_INVALID)
         String telephone,
 
-        @NotBlank(message = "L'e-mail est obligatoire")
-        @Email(message = "L'adresse e-mail n'est pas valide")
-        @Size(max = 255)
+        @NotBlank(message = ValidationMessages.EMAIL_REQUIRED)
+        @Email(message = ValidationMessages.EMAIL_INVALID)
+        @Size(max = 255, message = ValidationMessages.EMAIL_TOO_LONG)
         String email,
 
         @NotNull(message = "La date est obligatoire")

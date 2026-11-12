@@ -12,16 +12,23 @@ import com.lamaisonorientale.demande.dto.ContactResponseDto;
 import com.lamaisonorientale.demande.infrastructure.DemandeClientRepository;
 import com.lamaisonorientale.email.EmailDeliveryException;
 import com.lamaisonorientale.email.EmailService;
+import com.lamaisonorientale.notification.application.NotificationService;
+import com.lamaisonorientale.notification.domain.NotificationType;
 
 @Service
 public class ContactService {
 
     private final DemandeClientRepository repository;
     private final EmailService emailService;
+    private final NotificationService notificationService;
 
-    public ContactService(DemandeClientRepository repository, EmailService emailService) {
+    public ContactService(
+            DemandeClientRepository repository,
+            EmailService emailService,
+            NotificationService notificationService) {
         this.repository = repository;
         this.emailService = emailService;
+        this.notificationService = notificationService;
     }
 
     @Transactional(noRollbackFor = EmailDeliveryException.class)
@@ -51,6 +58,12 @@ public class ContactService {
                 saved.getNom(),
                 saved.getSujet(),
                 saved.getMessage());
+
+        notificationService.notifyStaff(
+                NotificationType.NOUVEAU_MESSAGE,
+                "Nouveau message contact",
+                saved.getNom() + " · " + saved.getSujet(),
+                "/admin/messages");
 
         return new ContactResponseDto(
                 saved.getId(),

@@ -1,7 +1,27 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { homePreviewImages } from "../data/galleryData";
+import { fetchPublicGalerie } from "../../admin/api/publicContentApi";
+import { homePreviewImages as fallbackImages } from "../data/galleryData";
 
 function HomeGalleryPreview() {
+  const [images, setImages] = useState(fallbackImages);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchPublicGalerie(true)
+      .then((list) => {
+        if (!cancelled && list.length > 0) {
+          setImages(list);
+        }
+      })
+      .catch(() => {
+        /* fallback local */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="home-gallery-preview editorial--alt">
       <div className="home-gallery-preview__inner">
@@ -11,8 +31,8 @@ function HomeGalleryPreview() {
         </div>
 
         <div className="gallery__grid gallery__grid--compact">
-          {homePreviewImages.map((image) => (
-            <figure key={image.src} className="gallery__cell">
+          {images.map((image, index) => (
+            <figure key={`${image.src}-${index}`} className="gallery__cell">
               <img src={image.src} alt={image.alt} loading="lazy" />
             </figure>
           ))}

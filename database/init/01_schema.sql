@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     email               VARCHAR(255) NOT NULL UNIQUE,
     mot_de_passe_hash   VARCHAR(255) NOT NULL,
     nom                 VARCHAR(100),
+    prenom              VARCHAR(100),
     role                VARCHAR(20) NOT NULL DEFAULT 'ADMIN',
     actif               BOOLEAN NOT NULL DEFAULT TRUE,
     created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -14,9 +15,15 @@ CREATE TABLE IF NOT EXISTS utilisateur (
 CREATE TABLE IF NOT EXISTS categorie (
     id                  BIGSERIAL PRIMARY KEY,
     nom                 VARCHAR(100) NOT NULL,
+    slug                VARCHAR(100),
+    image_url           VARCHAR(500),
+    note                VARCHAR(255),
     ordre_affichage     INT NOT NULL DEFAULT 0,
     active              BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_categorie_slug ON categorie (slug)
+    WHERE slug IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS plat (
     id                  BIGSERIAL PRIMARY KEY,
@@ -26,7 +33,18 @@ CREATE TABLE IF NOT EXISTS plat (
     prix                DECIMAL(10, 2) NOT NULL CHECK (prix >= 0),
     disponible          BOOLEAN NOT NULL DEFAULT TRUE,
     image_url           VARCHAR(500),
-    ordre_affichage     INT NOT NULL DEFAULT 0
+    ordre_affichage     INT NOT NULL DEFAULT 0,
+    sous_section        VARCHAR(100),
+    featured            BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS galerie_photo (
+    id                  BIGSERIAL PRIMARY KEY,
+    image_url           VARCHAR(500) NOT NULL,
+    alt                 VARCHAR(255),
+    ordre_affichage     INT NOT NULL DEFAULT 0,
+    active              BOOLEAN NOT NULL DEFAULT TRUE,
+    afficher_accueil    BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS horaire_ouverture (
@@ -63,9 +81,9 @@ CREATE TABLE IF NOT EXISTS reservation (
     email_client        VARCHAR(255),
     telephone_client    VARCHAR(30) NOT NULL,
     commentaire         TEXT,
-    statut              VARCHAR(20) NOT NULL DEFAULT 'EN_ATTENTE',
+    statut              VARCHAR(20) NOT NULL DEFAULT 'CONFIRMEE',
     created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    CHECK (statut IN ('EN_ATTENTE', 'CONFIRMEE', 'REFUSEE', 'ANNULEE'))
+    CHECK (statut IN ('CONFIRMEE', 'REFUSEE', 'ANNULEE', 'ARRIVEE', 'NO_SHOW'))
 );
 
 CREATE TABLE IF NOT EXISTS demande_client (

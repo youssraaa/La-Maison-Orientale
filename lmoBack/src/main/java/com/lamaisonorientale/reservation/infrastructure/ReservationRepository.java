@@ -21,7 +21,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                     FROM reservation
                     WHERE date_reservation = :date
                       AND heure_reservation = :heure
-                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                      AND statut = 'CONFIRMEE'
                     """,
             nativeQuery = true)
     Integer sumActiveCovers(@Param("date") LocalDate date, @Param("heure") LocalTime heure);
@@ -32,7 +32,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                     SELECT COALESCE(SUM(nb_personnes), 0)
                     FROM reservation
                     WHERE date_reservation = :date
-                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                      AND statut = 'CONFIRMEE'
                     """,
             nativeQuery = true)
     Integer sumActiveCoversForDate(@Param("date") LocalDate date);
@@ -62,7 +62,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                     SELECT date_reservation, COUNT(*), COALESCE(SUM(nb_personnes), 0)
                     FROM reservation
                     WHERE date_reservation BETWEEN :fromDate AND :toDate
-                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                      AND statut = 'CONFIRMEE'
                     GROUP BY date_reservation
                     ORDER BY date_reservation
                     """,
@@ -88,11 +88,78 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                     SELECT EXTRACT(HOUR FROM heure_reservation)::int, COUNT(*)
                     FROM reservation
                     WHERE date_reservation BETWEEN :fromDate AND :toDate
-                      AND statut IN ('EN_ATTENTE', 'CONFIRMEE')
+                      AND statut = 'CONFIRMEE'
                     GROUP BY EXTRACT(HOUR FROM heure_reservation)
                     ORDER BY 1
                     """,
             nativeQuery = true)
     List<Object[]> countActiveGroupedByHour(
             @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
+
+    @Query(
+            value =
+                    """
+                    SELECT
+                      CASE
+                        WHEN nb_personnes <= 2 THEN '1-2'
+                        WHEN nb_personnes <= 4 THEN '3-4'
+                        WHEN nb_personnes <= 6 THEN '5-6'
+                        ELSE '7+'
+                      END AS bucket,
+                      COUNT(*)
+                    FROM reservation
+                    WHERE date_reservation BETWEEN :fromDate AND :toDate
+                      AND statut = 'CONFIRMEE'
+                    GROUP BY bucket
+                    ORDER BY bucket
+                    """,
+            nativeQuery = true)
+    List<Object[]> countActiveGroupedByPartySize(
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
+
+    @Query(
+            value =
+                    """
+                    SELECT EXTRACT(MONTH FROM date_reservation)::int, COUNT(*)
+                    FROM reservation
+                    WHERE date_reservation >= :yearStart
+                      AND date_reservation <= :yearEnd
+                      AND statut = 'CONFIRMEE'
+                    GROUP BY EXTRACT(MONTH FROM date_reservation)
+                    ORDER BY 1
+                    """,
+            nativeQuery = true)
+    List<Object[]> countActiveGroupedByMonth(
+            @Param("yearStart") LocalDate yearStart, @Param("yearEnd") LocalDate yearEnd);
+
+    @Query(
+            value =
+                    """
+                    SELECT
+                      CASE
+                        WHEN EXTRACT(HOUR FROM heure_reservation) < 17 THEN 'MIDI'
+                        ELSE 'SOIR'
+                      END AS service,
+                      COUNT(*)
+                    FROM reservation
+                    WHERE date_reservation BETWEEN :fromDate AND :toDate
+                      AND statut = 'CONFIRMEE'
+                    GROUP BY service
+                    ORDER BY service
+                    """,
+            nativeQuery = true)
+    List<Object[]> countActiveGroupedByServicePeriod(
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate);
+
+    List<Reservation> findAllByOrderByDateReservationDescHeureReservationAsc();
+
+    List<Reservation> findByDateReservationOrderByHeureReservationAsc(LocalDate date);
+
+    List<Reservation> findByEmailClientIgnoreCaseOrderByCreatedAtDesc(String emailClient);
+
+    List<Reservation> findByTelephoneClientOrderByCreatedAtDesc(String telephoneClient);
+
+    List<Reservation> findByUtilisateurIdOrderByDateReservationDescHeureReservationAsc(Long utilisateurId);
+
+    java.util.Optional<Reservation> findByGestionToken(String gestionToken);
 }

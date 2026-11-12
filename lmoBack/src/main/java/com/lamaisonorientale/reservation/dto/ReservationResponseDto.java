@@ -11,6 +11,8 @@ public record ReservationResponseDto(
         LocalTime heure,
         Integer nbPersonnes,
         String statut,
-        Instant createdAt
+        Instant createdAt,
+        String manageToken,
+        String manageUrl
 ) {
 }

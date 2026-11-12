@@ -24,16 +24,38 @@ public record AdminDashboardDto(
             long reservationsPeriod,
             long coversPeriod,
             long messagesPeriod,
-            int confirmationRate) {}
+            int confirmationRate,
+            long reservationsYear,
+            long coversYear,
+            long commandesToday,
+            double revenueToday,
+            long commandesPeriod,
+            double revenuePeriod) {}
 
     public record DashboardChartsDto(
             List<DailyPointDto> reservationsByDay,
             List<DailyPointDto> coversByDay,
+            List<DailyPointDto> availableCoversByDay,
             List<DailyPointDto> messagesByDay,
             List<StatusPointDto> reservationsByStatus,
-            List<HourPointDto> reservationsByHour) {}
+            List<HourPointDto> reservationsByHour,
+            List<MonthlyPointDto> reservationsByMonth,
+            List<CategoryPointDto> reservationsByPartySize,
+            List<CategoryPointDto> reservationsByService,
+            List<DailyPointDto> commandesByDay,
+            List<MonthlyAmountPointDto> commandesByMonth,
+            List<DailyAmountPointDto> revenueByDay,
+            List<StatusPointDto> commandesByStatus) {}
 
     public record DailyPointDto(String date, String label, long value) {}
+
+    public record DailyAmountPointDto(String date, String label, double amount) {}
+
+    public record MonthlyPointDto(int month, String label, long value) {}
+
+    public record MonthlyAmountPointDto(int month, String label, long count, double amount) {}
+
+    public record CategoryPointDto(String key, String label, long value) {}
 
     public record StatusPointDto(String statut, String label, long value) {}
 

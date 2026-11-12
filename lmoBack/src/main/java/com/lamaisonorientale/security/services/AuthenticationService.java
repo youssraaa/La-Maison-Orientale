@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.lamaisonorientale.security.dto.JwtAuthenticationResponse;
 import com.lamaisonorientale.security.dto.SignInRequest;
+import com.lamaisonorientale.user.application.ClientRegistrationService;
+import com.lamaisonorientale.user.domain.RoleUtilisateur;
 import com.lamaisonorientale.user.domain.Utilisateur;
+import com.lamaisonorientale.user.dto.ClientSignUpRequest;
 import com.lamaisonorientale.user.infrastructure.UtilisateurRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,12 +21,45 @@ public class AuthenticationService {
     private final UtilisateurRepository utilisateurRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final ClientRegistrationService clientRegistrationService;
 
     private String normalizeEmail(String email) {
         return email == null ? null : email.trim().toLowerCase();
     }
 
-    public JwtAuthenticationResponse signin(SignInRequest request) {
+    public JwtAuthenticationResponse signinStaff(SignInRequest request) {
+        JwtAuthenticationResponse response = authenticate(request);
+        if (RoleUtilisateur.CLIENT.name().equals(response.getRole())) {
+            throw new IllegalArgumentException("Utilisez l'espace client pour vous connecter.");
+        }
+        return response;
+    }
+
+    public JwtAuthenticationResponse login(SignInRequest request) {
+        return authenticate(request);
+    }
+
+    public JwtAuthenticationResponse signinClient(SignInRequest request) {
+        JwtAuthenticationResponse response = authenticate(request);
+        if (!RoleUtilisateur.CLIENT.name().equals(response.getRole())) {
+            throw new IllegalArgumentException("E-mail ou mot de passe incorrect.");
+        }
+        return response;
+    }
+
+    public JwtAuthenticationResponse signupClient(ClientSignUpRequest request) {
+        Utilisateur user = clientRegistrationService.register(request);
+        String jwt = jwtService.generateToken(user);
+        return JwtAuthenticationResponse.builder()
+                .token(jwt)
+                .role(user.getRole().name())
+                .userId(user.getId())
+                .nom(user.getNom())
+                .email(user.getEmail())
+                .build();
+    }
+
+    private JwtAuthenticationResponse authenticate(SignInRequest request) {
         String email = normalizeEmail(request.getEmail());
 
         authenticationManager.authenticate(

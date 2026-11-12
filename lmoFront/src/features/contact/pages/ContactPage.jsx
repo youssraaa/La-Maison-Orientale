@@ -2,11 +2,12 @@ import PublicNavbar from "../../../common/components/PublicNavbar";
 import SiteFooter from "../../../common/components/SiteFooter";
 import SocialIcon from "../../../common/components/SocialIcon";
 import ContactForm from "../components/ContactForm";
-import { restaurantInfo } from "../../../common/data/restaurantInfo";
+import ContactIcon from "../components/ContactIcons";
+import useRestaurantInfo from "../../../common/hooks/useRestaurantInfo";
 
 function ContactPage() {
-  const { name, address, phone, email, hours, socials, services } =
-    restaurantInfo;
+  const { info } = useRestaurantInfo();
+  const { name, address, phone, email, hours, socials, services } = info;
 
   return (
     <main className="page contact-page">
@@ -21,82 +22,114 @@ function ContactPage() {
         </p>
       </section>
 
-      <div className="contact-sheet">
-        <div className="contact-sheet__ornament" aria-hidden="true" />
-        <p className="contact-sheet__brand">La Maison Orientale</p>
+      <div className="contact-wrap">
+        <aside className="contact-info">
+          <h2 className="contact-info__title">Nous trouver</h2>
+          <p className="contact-info__intro">
+            Retrouvez nos coordonnées ou écrivez-nous via le formulaire.
+          </p>
 
-        <div className="contact-layout">
-          <aside className="contact-info">
-            <dl className="contact-info__list">
+          <ul className="contact-info__items">
+            <li className="contact-info__item">
+              <span className="contact-info__icon" aria-hidden="true">
+                <ContactIcon name="pin" />
+              </span>
               <div>
-                <dt>Adresse</dt>
-                <dd>{address.full}</dd>
+                <p className="contact-info__label">Adresse</p>
+                <p className="contact-info__value">{address.full}</p>
               </div>
+            </li>
+            <li className="contact-info__item">
+              <span className="contact-info__icon" aria-hidden="true">
+                <ContactIcon name="phone" />
+              </span>
               <div>
-                <dt>Téléphone</dt>
-                <dd>
+                <p className="contact-info__label">Téléphone</p>
+                <p className="contact-info__value">
                   <a href={phone.href}>{phone.display}</a>
-                </dd>
+                </p>
               </div>
+            </li>
+            <li className="contact-info__item">
+              <span className="contact-info__icon" aria-hidden="true">
+                <ContactIcon name="mail" />
+              </span>
               <div>
-                <dt>E-mail</dt>
-                <dd>
+                <p className="contact-info__label">E-mail</p>
+                <p className="contact-info__value">
                   <a href={email.href}>{email.display}</a>
-                </dd>
+                </p>
               </div>
+            </li>
+            <li className="contact-info__item">
+              <span className="contact-info__icon" aria-hidden="true">
+                <ContactIcon name="clock" />
+              </span>
               <div>
-                <dt>Horaires</dt>
-                <dd>
+                <p className="contact-info__label">Horaires</p>
+                <p className="contact-info__value">
                   {hours.schedule.map((row) => (
                     <span key={row.day} className="contact-info__hours-row">
                       {row.day} : {row.time}
                       <br />
                     </span>
                   ))}
-                </dd>
+                </p>
               </div>
-              {services?.length > 0 && (
+            </li>
+            {services?.length > 0 ? (
+              <li className="contact-info__item">
+                <span className="contact-info__icon" aria-hidden="true">
+                  <ContactIcon name="service" />
+                </span>
                 <div>
-                  <dt>Service</dt>
-                  <dd>{services.join(" · ")}</dd>
+                  <p className="contact-info__label">Services</p>
+                  <p className="contact-info__value">{services.join(" · ")}</p>
                 </div>
-              )}
-            </dl>
+              </li>
+            ) : null}
+          </ul>
 
-            {socials?.length > 0 && (
-              <div className="contact-info__socials">
-                <p className="contact-info__socials-label">Suivez-nous</p>
-                <ul className="contact-info__social-list">
-                  {socials.map((social) => (
-                    <li key={social.id}>
-                      <a
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="contact-info__social-link"
-                        aria-label={`${social.label} — ${name}`}
-                        title={social.label}
-                      >
-                        <SocialIcon id={social.id} />
-                        <span>{social.label}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </aside>
+          {socials?.length > 0 ? (
+            <div className="contact-info__socials">
+              <p className="contact-info__label">Suivez-nous</p>
+              <ul className="contact-info__social-list">
+                {socials.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-info__social-link"
+                      aria-label={`${social.label} — ${name}`}
+                      title={social.label}
+                    >
+                      <SocialIcon id={social.id} />
+                      <span>{social.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </aside>
 
-          <section className="contact-panel">
-            <h2>Envoyer un message</h2>
-            <p className="contact-panel__lead">
-              Une question, un anniversaire ou un événement ? Laissez-nous votre
-              e-mail pour que nous puissions vous répondre, ou appelez-nous
-              directement.
-            </p>
-            <ContactForm />
-          </section>
-        </div>
+        <section className="contact-panel">
+          <div className="contact-panel__head">
+            <span className="contact-panel__badge" aria-hidden="true">
+              <ContactIcon name="message" />
+            </span>
+            <div>
+              <h2>Envoyer un message</h2>
+              <p className="contact-panel__lead">
+                Une question, un anniversaire ou un événement ? Remplissez le
+                formulaire ci-dessous. Nous vous répondrons dans les plus brefs
+                délais&nbsp;!
+              </p>
+            </div>
+          </div>
+          <ContactForm />
+        </section>
       </div>
 
       <SiteFooter />
